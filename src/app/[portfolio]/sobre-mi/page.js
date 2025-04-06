@@ -26,16 +26,7 @@ export default function AboutMe() {
     };
 
     return (
-        <div className="max-w-sm mx-auto px-4 py-8 text-center">
-            {/* Imagen de perfil */}
-            <div className="flex flex-col aligne-center justify-center mb-6">
-                <img 
-                    src={userData.image} 
-                    alt="Imagen de perfil" 
-                    className="rounded-full w-36 h-36 object-cover border-4 border-gray-200 shadow-lg m-auto"
-                />
-                <h1 className="text-lg font-bold mb-3 mt-2 m-auto">@alejomayuri</h1>
-            </div>
+        <div className="max-w-sm mx-auto text-center">
 
             {/* Introducción */}
             <section>
