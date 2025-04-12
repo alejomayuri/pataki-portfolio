@@ -2,61 +2,60 @@
 import { useState } from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaWhatsapp } from "react-icons/fa"; // Iconos de redes
 
-export default function Portfolio() {
+const USER_DATA = {
+    collections: [
+        {
+            title: "Tatuajes Geométricos",
+            photos: [
+                { 
+                    src: "/demo/image1.jpg", 
+                    alt: "Tatuaje Geométrico - Líneas y formas",
+                    description: "Un diseño de líneas finas que crean una figura geométrica abstracta, con un toque minimalista. Perfecto para quienes buscan un tatuaje discreto pero sofisticado.",
+                    style: "Geometría" 
+                },
+                { 
+                    src: "/demo/image2.jpg", 
+                    alt: "Tatuaje de Mandala",
+                    description: "",
+                    style: "Tradicional"
+                },
+                { 
+                    src: "/demo/image3.jpg", 
+                    alt: "Tatuaje Abstracto",
+                    description: "Diseño abstracto en tonos oscuros, explorando la libertad del arte y la forma sin límites.",
+                    style: "Abstracto" 
+                }
+            ]
+        },
+        {
+            title: "Tatuajes de Realismo",
+            photos: [
+                { 
+                    src: "/demo/image1.jpg", 
+                    alt: "Tatuaje Realista - Retrato de un León",
+                    description: "Retrato realista de un león con detalles minuciosos, capturando la esencia de la majestuosidad de este animal. Un diseño que simboliza fuerza y valentía.",
+                    style: "Realismo" 
+                },
+                { 
+                    src: "/demo/image2.jpg", 
+                    alt: "Tatuaje Realista - Retrato de una Mujer",
+                    description: "Un retrato en blanco y negro de una mujer con un estilo delicado pero profundo, destacando emociones a través de sombras sutiles y líneas precisas.",
+                    style: "" 
+                },
+                { 
+                    src: "/demo/image3.jpg", 
+                    alt: "Tatuaje Realista - Paisaje Natural",
+                    description: "Tatuaje de un paisaje montañoso con nubes densas y árboles detallados, creando una escena tan vívida que casi se puede oler la brisa fresca.",
+                    style: "Realismo"
+                }
+            ]
+        }
+    ]
+}
+
+export default function Fotos({ userData = USER_DATA }) {
     const [lightboxImage, setLightboxImage] = useState(null);
     const [lightboxStyle, setLightboxStyle] = useState(null); // Estado para la etiqueta en el Lightbox
-
-    const userData = {
-        image: "/demo/persona1.jpg",
-        collections: [
-            {
-                title: "Tatuajes Geométricos",
-                photos: [
-                    { 
-                        src: "/demo/image1.jpg", 
-                        alt: "Tatuaje Geométrico - Líneas y formas",
-                        description: "Un diseño de líneas finas que crean una figura geométrica abstracta, con un toque minimalista. Perfecto para quienes buscan un tatuaje discreto pero sofisticado.",
-                        style: "Geometría" 
-                    },
-                    { 
-                        src: "/demo/image2.jpg", 
-                        alt: "Tatuaje de Mandala",
-                        description: "",
-                        style: "Tradicional"
-                    },
-                    { 
-                        src: "/demo/image3.jpg", 
-                        alt: "Tatuaje Abstracto",
-                        description: "Diseño abstracto en tonos oscuros, explorando la libertad del arte y la forma sin límites.",
-                        style: "Abstracto" 
-                    }
-                ]
-            },
-            {
-                title: "Tatuajes de Realismo",
-                photos: [
-                    { 
-                        src: "/demo/image1.jpg", 
-                        alt: "Tatuaje Realista - Retrato de un León",
-                        description: "Retrato realista de un león con detalles minuciosos, capturando la esencia de la majestuosidad de este animal. Un diseño que simboliza fuerza y valentía.",
-                        style: "Realismo" 
-                    },
-                    { 
-                        src: "/demo/image2.jpg", 
-                        alt: "Tatuaje Realista - Retrato de una Mujer",
-                        description: "Un retrato en blanco y negro de una mujer con un estilo delicado pero profundo, destacando emociones a través de sombras sutiles y líneas precisas.",
-                        style: "" 
-                    },
-                    { 
-                        src: "/demo/image3.jpg", 
-                        alt: "Tatuaje Realista - Paisaje Natural",
-                        description: "Tatuaje de un paisaje montañoso con nubes densas y árboles detallados, creando una escena tan vívida que casi se puede oler la brisa fresca.",
-                        style: "Realismo"
-                    }
-                ]
-            }
-        ]
-    }
 
     // Función para generar enlaces de compartir
     const shareLinks = (imageUrl) => {
