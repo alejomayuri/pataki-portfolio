@@ -8,6 +8,7 @@ export default function LinkTree() {
         colections: [
             {
                 title: "Contacto",
+                title: "Alejo Mayurí",
                 socialLinks: [
                     {
                         title: "Descargar CV",
@@ -79,6 +80,31 @@ export default function LinkTree() {
 
     return (
         <div className="max-w-sm mx-auto">
+            {/* Imagen */}
+            {userData.image && (
+                <>
+                    <div className="mt-8 mb-6 flex justify-center">
+                        <img
+                            src={userData.image}
+                            alt="Foto de perfil"
+                            className="w-32 h-32 rounded-full shadow-md object-cover"
+                        />
+                    </div>
+                    <h1 className="text-lg font-bold mb-4 text-center">{userData.title}</h1>
+                </>
+            )}
+            {/* {userData.image && (
+                <>
+                    <div className="mt-8 mb-6">
+                        <img
+                            src={userData.image}
+                            alt="Foto de perfil"
+                            className="w-full h-auto rounded-xl shadow-md"
+                        />
+                    </div>
+                    <h1 className="text-lg font-bold mb-4">{userData.title}</h1>
+                </>
+            )} */}
             {/* Enlaces */}
             <div className="space-y-4">
                 {userData.colections.map((colection, index) => (

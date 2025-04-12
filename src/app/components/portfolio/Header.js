@@ -14,6 +14,7 @@ import {
 } from "react-icons/fa";
 
 const USER_DATA = {
+  fixed: true,
   image: "/demo/persona1.jpg",
   title: "How it works Alejo Mayurí",
   menuLinks: [
@@ -63,7 +64,7 @@ export default function Header({ userData = USER_DATA }) {
 
   return (
     <>
-      <header className="mt-4 fixed top-0 left-0 right-0 z-50 flex items-center justify-between max-w-md px-2 mx-auto">
+      <header className={`mt-4 ${userData.fixed ? 'fixed' : ''} top-0 left-0 right-0 z-50 flex items-center justify-between max-w-md w-full px-2 mx-auto`}>
         <div className={`flex relative mx-auto max-w-md rounded-full py-4 w-full items-center ${userData?.image ? 'justify-between' : 'justify-end'} bg-white shadow-sm px-4 bg-white/80 backdrop-blur-sm`}>
           {/* Logo o imagen */}
           {userData?.image && (

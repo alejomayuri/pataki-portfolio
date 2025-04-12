@@ -50,13 +50,6 @@ export default function AboutMe() {
     },
     socialTitle: "Sígueme en redes",
     skillsTitle: "Habilidades",
-    // skills: [
-    //   { name: "Fotografía de Retrato", icon: <FaCamera /> },
-    //   { name: "Fotografía de Paisajes", icon: <FaCamera /> },
-    //   { name: "Edición de Fotografías", icon: <FaPaintBrush /> },
-    //   { name: "Dirección de Arte", icon: <FaPencilRuler /> },
-    //   { name: "Composición Visual", icon: <FaFilm /> }
-    // ],
     socialLinks: {
       facebook: "https://www.facebook.com/juanperezfotografia",
       twitter: "https://twitter.com/juanperez_foto",
