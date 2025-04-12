@@ -112,10 +112,10 @@ export default function Header({ userData = USER_DATA }) {
               <motion.div
                 className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl p-6 max-w mx-auto max-w-md px-2 mx-auto"
                 initial={{ y: "100%" }}
-                animate={{ y: "30%" }}
+                animate={{ y: "0%" }}
                 exit={{ y: "100%" }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                style={{ height: "100vh" }}
+                style={{ maxHeight: "100vh", overflowY: "auto" }} 
               >
                 <div className="flex justify-end mb-4">
                   <button
@@ -172,13 +172,13 @@ export default function Header({ userData = USER_DATA }) {
                   <div className="flex justify-between gap-5 mt-8">
                     <Link
                       href="/crear"
-                      className="bg-black text-white text-base font-semibold px-6 py-3 rounded-full shadow hover:bg-gray-800 transition-colors flex-1"
+                      className="bg-black text-center text-white text-base font-semibold px-4 py-3 rounded-full shadow hover:bg-gray-800 transition-colors flex-1"
                     >
                       Regístrate gratis
                     </Link>
                     <Link
                       href="/"
-                      className="text-center bg-gray-200 text-base font-semibold px-6 py-3 rounded-full hover:bg-gray-300 transition-colors flex-1"
+                      className="text-center bg-gray-200 text-base font-semibold px-4 py-3 rounded-full hover:bg-gray-300 transition-colors flex-1"
                     >
                       Ver más
                     </Link>
