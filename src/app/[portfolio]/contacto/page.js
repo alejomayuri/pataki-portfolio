@@ -8,7 +8,6 @@ export default function LinkTree() {
         colections: [
             {
                 title: "Contacto",
-                title: "Alejo Mayurí",
                 socialLinks: [
                     {
                         title: "Descargar CV",
@@ -93,22 +92,11 @@ export default function LinkTree() {
                     <h1 className="text-lg font-bold mb-4 text-center">{userData.title}</h1>
                 </>
             )}
-            {/* {userData.image && (
-                <>
-                    <div className="mt-8 mb-6">
-                        <img
-                            src={userData.image}
-                            alt="Foto de perfil"
-                            className="w-full h-auto rounded-xl shadow-md"
-                        />
-                    </div>
-                    <h1 className="text-lg font-bold mb-4">{userData.title}</h1>
-                </>
-            )} */}
+
             {/* Enlaces */}
             <div className="space-y-4">
                 {userData.colections.map((colection, index) => (
-                    <div key={index} className="mb-8"> 
+                    <div key={index} className="mb-8">
                         <div className="text-center">
                             <h2 className="text-lg font-bold mb-4">{colection?.title}</h2>
                         </div>
@@ -119,13 +107,13 @@ export default function LinkTree() {
                                         href={link.link} 
                                         target="_blank" 
                                         rel="noopener noreferrer" 
-                                        className="block text-center py-5 px-12 relative bg-gray-900 text-white rounded shadow-md hover:bg-gray-700 transition duration-300"
+                                        className="block text-center py-6 px-12 relative bg-gray-100 text-gray-800 rounded shadow-md hover:bg-gray-200 transition duration-300"
                                     >
                                         {(link.icon || link.image) && <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                                             {link.icon ? (
                                                 link.icon
                                             ) : (
-                                                <div className="w-11 h-11" >
+                                                <div className="w-12 h-12">
                                                     <img 
                                                         src={link.image} 
                                                         alt={`${link.title} icon`} 
@@ -134,7 +122,7 @@ export default function LinkTree() {
                                                 </div>
                                             )}
                                         </div>}
-                                        {link.title} 
+                                        {link.title}
                                     </a>
                                 </div>
                             ))}
