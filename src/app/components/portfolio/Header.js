@@ -19,7 +19,6 @@ const USER_DATA = {
   title: "How it works Alejo Mayurí",
   menuLinks: [
     { title: "Sobre mí", link: "/xd" },
-    { title: "Fotos", link: "/xd/fotos" },
     { title: "Colección 2025 en Praga", link: "/xd/coleccion-2025-en-praga" },
     { title: "Serendipity x Alejo Mayuri", link: "/xd/serendipity-x-alejo-mayuri" },
     { title: "Contacto", link: "/xd/contacto" },
@@ -147,7 +146,7 @@ export default function Header({ userData = USER_DATA }) {
                     <div className="mt-8 border-t pt-6">
                       <div className="flex flex-wrap justify-center gap-6">
                         {userData.shareButtons.map((button, index) => (
-                          <a
+                          <Link
                             key={index}
                             href={`${button.baseUrl}${encodeURIComponent(currentUrl)}`}
                             target="_blank"
@@ -158,7 +157,7 @@ export default function Header({ userData = USER_DATA }) {
                           >
                             {button.icon}
                             <span className="text-xs">{button.name}</span>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>

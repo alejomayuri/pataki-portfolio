@@ -1,0 +1,177 @@
+{
+    "alejo": {
+        "home": { 
+            "image": "/demo/persona1.jpg", 
+            "name": "Alejo Mayurí",
+            "social": {
+                "facebook": "https://www.facebook.com/juanperezfotografia",
+                "twitter": "https://twitter.com/juanperez_foto",
+                "instagram": "https://www.instagram.com/juanperezfotografia",
+                "linkedin": "https://www.linkedin.com/in/juanperezfotografia"
+            },
+            "text": [
+                {
+                    "title": "Si, ese soy yo y ésta es mi historia",
+                    "text": "Soy fotógrafa profesional y también artista visual. Me dedico a hacer muchas cosas pero también unas de las cosas que más me gusta es tomar fotografías desde mi celular. Puedo capturar los momentos que he vivido día a día. Las llamo fotografías efímeras, están y de ahí, desaparece tanto el recuerdo como el momento."
+                }
+            ],
+            "amount": [
+                {
+                    "title": "Proyectos Completados",
+                    "value": "150"
+                },
+                {
+                    "title": "Instagram",
+                    "value": "10k+"
+                },
+                {
+                    "title": "Dinero recaudado",
+                    "value": "$50k+"
+                }
+            ],
+            "callAction": {
+                "title": "Descargar CV",
+                "link": "/cv.pdf"
+            }
+        },
+        "contacto": { "email": "alejo@ejemplo.com" },
+        "coleccion-2025-en-praga": {
+            "type": "fotos",
+            "name": "Colección 2025 en Praga",
+            "data": {
+                "text": {
+                    "title": "Tatuajes",
+                    "text": "Explora una variedad de estilos y diseños únicos que capturan la esencia del arte corporal. Desde lo geométrico hasta el realismo, cada tatuaje cuenta una historia."
+                },
+                "albums": [
+                    {
+                        "title": "Tatuajes Geométricos",
+                        "photos": [
+                            { 
+                                "src": "/demo/image1.jpg", 
+                                "alt": "Tatuaje Geométrico - Líneas y formas"
+                            },
+                            { 
+                                "src": "/demo/image2.jpg", 
+                                "alt": "Tatuaje de Mandala"
+                            },
+                            { 
+                                "src": "/demo/image3.jpg", 
+                                "alt": "Tatuaje Abstracto"
+                            },
+                            { 
+                                "src": "/demo/image4.jpg", 
+                                "alt": "Tatuaje Realista - Retrato de un León"
+                            },
+                            { 
+                                "src": "/demo/image5.jpg", 
+                                "alt": "Tatuaje Realista - Retrato de un León"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Tatuajes de Realismo",
+                        "photos": [
+                            { 
+                                "src": "/demo/image4.jpg", 
+                                "alt": "Tatuaje Geométrico - Líneas y formas"
+                            },
+                            { 
+                                "src": "/demo/image2.jpg", 
+                                "alt": "Tatuaje de Mandala"
+                            },
+                            { 
+                                "src": "/demo/image1.jpg", 
+                                "alt": "Tatuaje Abstracto"
+                            },
+                            { 
+                                "src": "/demo/image5.jpg", 
+                                "alt": "Tatuaje Realista - Retrato de un León"
+                            },
+                            { 
+                                "src": "/demo/image5.jpg", 
+                                "alt": "Tatuaje Realista - Retrato de un León"
+                            },
+                            { 
+                                "src": "/demo/image1.jpg", 
+                                "alt": "Tatuaje Geométrico - Líneas y formas"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "serendipity-x-alejo-mayuri": {
+            "type": "fotos",
+            "name": "Serendipity x Alejo Mayurí",
+            "data": {
+                "text": {
+                    "title": "Tatuajes",
+                    "text": "Explora una variedad de estilos y diseños únicos que capturan la esencia del arte corporal. Desde lo geométrico hasta el realismo, cada tatuaje cuenta una historia."
+                },
+                "albums": [
+                    {
+                        "title": "Tatuajes Geométricos",
+                        "photos": [
+                            { 
+                                "src": "/demo/image1.jpg", 
+                                "alt": "Tatuaje Geométrico - Líneas y formas"
+                            },
+                            { 
+                                "src": "/demo/image2.jpg", 
+                                "alt": "Tatuaje de Mandala"
+                            },
+                            { 
+                                "src": "/demo/image3.jpg", 
+                                "alt": "Tatuaje Abstracto"
+                            },
+                            { 
+                                "src": "/demo/image4.jpg", 
+                                "alt": "Tatuaje Realista - Retrato de un León"
+                            },
+                            { 
+                                "src": "/demo/image5.jpg", 
+                                "alt": "Tatuaje Realista - Retrato de un León"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Tatuajes de Realismo",
+                        "photos": [
+                            { 
+                                "src": "/demo/image3.jpg", 
+                                "alt": "Tatuaje Geométrico - Líneas y formas"
+                            },
+                            { 
+                                "src": "/demo/image2.jpg", 
+                                "alt": "Tatuaje de Mandala"
+                            },
+                            { 
+                                "src": "/demo/image1.jpg", 
+                                "alt": "Tatuaje Abstracto"
+                            },
+                            { 
+                                "src": "/demo/image4.jpg", 
+                                "alt": "Tatuaje Realista - Retrato de un León"
+                            },
+                            { 
+                                "src": "/demo/image5.jpg", 
+                                "alt": "Tatuaje Realista - Retrato de un León"
+                            },
+                            { 
+                                "src": "/demo/image1.jpg", 
+                                "alt": "Tatuaje Geométrico - Líneas y formas"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "videos": [{ "id": 1, "type": "videos", "url": "https://youtu.be/abc" }]
+    },
+    "sofia": {
+        "home": { "image": "/demo/persona2.jpg", "name": "Sofía" },
+        "contacto": { "email": "sofia@ejemplo.com" },
+        "fotos": [{ "id": 1, "type": "fotos", "image": "/demo/sofia1.jpg" }]
+    }
+}

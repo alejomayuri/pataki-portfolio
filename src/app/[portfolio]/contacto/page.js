@@ -1,10 +1,33 @@
 'use client';
 
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 
 export default function LinkTree() {
     const userData = {
         image: "/demo/persona1.jpg",
+        title: "Alejo Mayurí",
+        socialLinks: [
+            {
+                title: "WhatsApp",
+                link: "https://wa.me/1234567890",
+                icon: <FaWhatsapp size={20} className="w-6 h-6" />,
+            },
+            {
+                title: "Twitter",
+                link: "https://twitter.com/juanperez_foto",
+                icon: <FaTwitter size={20} className="w-6 h-6" />, 
+            },
+            {
+                title: "Instagram",
+                link: "https://www.instagram.com/juanperezfotografia",
+                icon: <FaInstagram size={20} className="w-6 h-6" />,
+            },
+            {
+                title: "Facebook",
+                link: "https://www.linkedin.com/in/juanperezfotografia",
+                icon: <FaFacebook size={20} className="w-6 h-6" />,
+            },
+        ],
         colections: [
             {
                 title: "Contacto",
@@ -20,7 +43,7 @@ export default function LinkTree() {
                     {
                         title: "Twitter",
                         link: "https://twitter.com/juanperez_foto",
-                        image: "/demo/image2.jpg", // Ejemplo usando imagen en vez de icono
+                        image: "/demo/image2.jpg",
                     },
                     {
                         title: "Instagram",
@@ -45,7 +68,7 @@ export default function LinkTree() {
                     {
                         title: "Twitter",
                         link: "https://twitter.com/juanperez_foto",
-                        image: "/demo/image2.jpg", // Ejemplo usando imagen en vez de icono
+                        image: "/demo/image2.jpg",
                     },
                     {
                         title: "Serendipity x Alejo Mayuri",
@@ -65,7 +88,7 @@ export default function LinkTree() {
                     {
                         title: "Mirar Chef",
                         link: "https://twitter.com/juanperez_foto",
-                        image: "/demo/image2.jpg", // Ejemplo usando imagen en vez de icono
+                        image: "/demo/image2.jpg",
                     },
                     {
                         title: "Otras cosas",
@@ -89,7 +112,32 @@ export default function LinkTree() {
                             className="w-32 h-32 rounded-full shadow-md object-cover"
                         />
                     </div>
-                    <h1 className="text-lg font-bold mb-4 text-center">{userData.title}</h1>
+                    <h1 className="text-lg font-bold mb-2 text-center">
+                        {userData.title}
+                    </h1>
+
+                    {/* Íconos de redes sociales debajo de la imagen */}
+                    <div className="flex justify-center gap-4 mb-6">
+                        {userData.socialLinks?.map((link, index) => (
+                            <a
+                                key={index}
+                                href={link.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:text-gray-900 transition"
+                            >
+                                {link.icon ? (
+                                    link.icon
+                                ) : (
+                                    <img
+                                        src={link.image}
+                                        alt={link.title}
+                                        className="w-6 h-6 object-cover rounded-full"
+                                    />
+                                )}
+                            </a>
+                        ))}
+                    </div>
                 </>
             )}
 
@@ -103,25 +151,27 @@ export default function LinkTree() {
                         <div className="flex flex-col gap-4">
                             {colection.socialLinks.map((link, index) => (
                                 <div key={index}>
-                                    <a 
-                                        href={link.link} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer" 
-                                        className="block text-center py-6 px-12 relative bg-gray-100 text-gray-800 rounded shadow-md hover:bg-gray-200 transition duration-300"
+                                    <a
+                                        href={link.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block text-center py-5 px-12 relative bg-gray-100 text-gray-800 rounded shadow-md hover:bg-gray-200 transition duration-300"
                                     >
-                                        {(link.icon || link.image) && <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                                            {link.icon ? (
-                                                link.icon
-                                            ) : (
-                                                <div className="w-12 h-12">
-                                                    <img 
-                                                        src={link.image} 
-                                                        alt={`${link.title} icon`} 
-                                                        className="w-full h-full object-cover" 
-                                                    />
-                                                </div>
-                                            )}
-                                        </div>}
+                                        {(link.icon || link.image) && (
+                                            <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                                                {link.icon ? (
+                                                    link.icon
+                                                ) : (
+                                                    <div className="w-11 h-11">
+                                                        <img
+                                                            src={link.image}
+                                                            alt={`${link.title} icon`}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
                                         {link.title}
                                     </a>
                                 </div>
