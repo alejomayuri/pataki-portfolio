@@ -1,5 +1,17 @@
 {
     "alejo": {
+        "main-menu": {
+            "fixed": true,
+            "image": "/demo/persona1.jpg",
+            "title": "How it works Alejo Mayurí",
+            "menuLinks": [
+                { "title": "Sobre mí", "link": "/alejo" },
+                { "title": "Colección 2025 en Praga", "link": "/alejo/coleccion-2025-en-praga" },
+                { "title": "Paisajes", "link": "/alejo/paisajes" },
+                { "title": "Serendipity x Alejo Mayuri", "link": "/alejo/serendipity-x-alejo-mayuri" },
+                { "title": "Contacto", "link": "/alejo/contacto" }
+              ]
+        },
         "home": { 
             "image": "/demo/persona1.jpg", 
             "name": "Alejo Mayurí",
@@ -34,7 +46,6 @@
                 "link": "/cv.pdf"
             }
         },
-        "contacto": { "email": "alejo@ejemplo.com" },
         "coleccion-2025-en-praga": {
             "type": "fotos",
             "name": "Colección 2025 en Praga",
@@ -77,11 +88,11 @@
                                 "alt": "Tatuaje Geométrico - Líneas y formas"
                             },
                             { 
-                                "src": "/demo/image2.jpg", 
+                                "src": "/demo/image6.jpg", 
                                 "alt": "Tatuaje de Mandala"
                             },
                             { 
-                                "src": "/demo/image1.jpg", 
+                                "src": "/demo/image2.jpg", 
                                 "alt": "Tatuaje Abstracto"
                             },
                             { 
@@ -94,6 +105,36 @@
                             },
                             { 
                                 "src": "/demo/image1.jpg", 
+                                "alt": "Tatuaje Geométrico - Líneas y formas"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Paisajes",
+                        "photos": [
+                            { 
+                                "src": "/demo/image6.jpg", 
+                                "alt": "Tatuaje Geométrico - Líneas y formas"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "paisajes": {
+            "type": "fotos",
+            "name": "Paisajes",
+            "data": {
+                "text": {
+                    "title": "Tatuajes",
+                    "text": "Explora una variedad de estilos y diseños únicos que capturan la esencia del arte corporal. Desde lo geométrico hasta el realismo, cada tatuaje cuenta una historia."
+                },
+                "albums": [
+                    {
+                        "title": "Tatuajes Geométricos",
+                        "photos": [
+                            { 
+                                "src": "/demo/image6.jpg", 
                                 "alt": "Tatuaje Geométrico - Líneas y formas"
                             }
                         ]
@@ -139,7 +180,7 @@
                         "title": "Tatuajes de Realismo",
                         "photos": [
                             { 
-                                "src": "/demo/image3.jpg", 
+                                "src": "/demo/image7.jpg", 
                                 "alt": "Tatuaje Geométrico - Líneas y formas"
                             },
                             { 
@@ -167,11 +208,83 @@
                 ]
             }
         },
-        "videos": [{ "id": 1, "type": "videos", "url": "https://youtu.be/abc" }]
-    },
-    "sofia": {
-        "home": { "image": "/demo/persona2.jpg", "name": "Sofía" },
-        "contacto": { "email": "sofia@ejemplo.com" },
-        "fotos": [{ "id": 1, "type": "fotos", "image": "/demo/sofia1.jpg" }]
+        "videos": [{ "id": 1, "type": "videos", "url": "https://youtu.be/abc" }],
+        "contacto": {
+            "image": "/demo/persona1.jpg",
+            "title": "Alejo Mayurí",
+            "social": {
+                "facebook": "https://www.facebook.com/juanperezfotografia",
+                "twitter": "https://twitter.com/juanperez_foto",
+                "instagram": "https://www.instagram.com/juanperezfotografia",
+                "linkedin": "https://www.linkedin.com/in/juanperezfotografia"
+            },
+            "linkGroup": [
+                {
+                    "title": "Contacto",
+                    "links": [
+                        {
+                            "title": "Descargar CV",
+                            "link": "/cv.pdf"
+                        },
+                        {
+                            "title": "WhatsApp",
+                            "link": "https://wa.me/1234567890"
+                        },
+                        {
+                            "title": "Twitter",
+                            "link": "https://twitter.com/juanperez_foto",
+                            "image": "/demo/image2.jpg"
+                        },
+                        {
+                            "title": "Instagram",
+                            "link": "https://www.instagram.com/juanperezfotografia"
+                        },
+                        {
+                            "title": "Linkedin",
+                            "link": "https://www.linkedin.com/in/juanperezfotografia",
+                            "image": "/demo/image3.jpg"
+                        }
+                    ]
+                },
+                {
+                    "title": "Colaboraciones",
+                    "links": [
+                        {
+                            "title": "Our Place x Alejo Mayuri",
+                            "link": "https://www.ourplace.com/collections/alejo-mayuri"
+                        },
+                        {
+                            "title": "Twitter",
+                            "link": "https://twitter.com/juanperez_foto",
+                            "image": "/demo/image2.jpg"
+                        },
+                        {
+                            "title": "Serendipity x Alejo Mayuri",
+                            "link": "https://www.linkedin.com/in/juanperezfotografia",
+                            "image": "/demo/image3.jpg"
+                        }
+                    ]
+                },
+                {
+                    "title": "Ver",
+                    "links": [
+                        {
+                            "title": "Stream Now Our Place x Alejo Mayuri",
+                            "link": "https://www.ourplace.com/collections/alejo-mayuri"
+                        },
+                        {
+                            "title": "Mirar Chef",
+                            "link": "https://twitter.com/juanperez_foto",
+                            "image": "/demo/image2.jpg"
+                        },
+                        {
+                            "title": "Otras cosas",
+                            "link": "https://www.linkedin.com/in/juanperezfotografia",
+                            "image": "/demo/image3.jpg"
+                        }
+                    ]
+                }
+            ]
+        }
     }
 }

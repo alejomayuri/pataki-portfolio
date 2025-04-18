@@ -21,8 +21,6 @@ export default function AboutMe() {
     .then(data => setUserData(data));
   }, [portfolio]);
 
-  console.log(userData);
-
   if (!userData) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
   }
@@ -105,7 +103,8 @@ export default function AboutMe() {
         </section>
         )}
 
-      {userData?.preview?.fotos && userData.preview.fotos.length > 0 && (
+      {/* Preview Fotos */}
+      {userData?.preview?.fotos && userData?.preview?.fotos?.length > 0 && (
         <section className="mt-12 space-y-12">
           {userData.preview.fotos.map((section, i) => (
             <Link

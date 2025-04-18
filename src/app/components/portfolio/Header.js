@@ -13,17 +13,8 @@ import {
   FaEnvelope
 } from "react-icons/fa";
 
-const USER_DATA = {
-  fixed: true,
-  image: "/demo/persona1.jpg",
-  title: "How it works Alejo Mayurí",
-  menuLinks: [
-    { title: "Sobre mí", link: "/xd" },
-    { title: "Colección 2025 en Praga", link: "/xd/coleccion-2025-en-praga" },
-    { title: "Serendipity x Alejo Mayuri", link: "/xd/serendipity-x-alejo-mayuri" },
-    { title: "Contacto", link: "/xd/contacto" },
-  ],
-  shareButtons: [
+
+  const shareButtons = [
     {
       name: "Facebook",
       icon: <FaFacebook size={36} />,
@@ -55,22 +46,22 @@ const USER_DATA = {
       baseUrl: "mailto:?body="
     }
   ]
-};
 
-export default function Header({ userData = USER_DATA }) {
+
+export default function Header({ data }) {
   const [isOpen, setIsOpen] = useState(false);
   const currentUrl = typeof window !== "undefined" ? window.location.href : "";
 
   return (
     <>
-      <header className={`mt-4 ${userData.fixed ? 'fixed' : ''} top-0 left-0 right-0 z-50 flex items-center justify-between max-w-md w-full px-2 mx-auto`}>
-        <div className={`flex relative mx-auto max-w-md rounded-full py-4 w-full items-center ${userData?.image ? 'justify-between' : 'justify-end'} bg-white shadow-sm px-4 bg-white/80 backdrop-blur-sm`}>
+      <header className={`mt-4 ${data?.fixed ? 'fixed' : ''} top-0 left-0 right-0 z-50 flex items-center justify-between max-w-md w-full px-2 mx-auto`}>
+        <div className={`flex relative mx-auto max-w-md rounded-full py-4 w-full items-center ${data?.image ? 'justify-between' : 'justify-end'} bg-white shadow-sm px-4 bg-white/80 backdrop-blur-sm`}>
           {/* Logo o imagen */}
-          {userData?.image && (
+          {data?.image && (
             <div>
               <Link href="/xd" className="flex items-center gap-2 z-99">
                 <img
-                  src={userData?.image}
+                  src={data?.image}
                   alt="Logo"
                   className="w-10 h-10 object-cover rounded-full border-2 border-gray-200 shadow-md"
                 />
@@ -79,11 +70,11 @@ export default function Header({ userData = USER_DATA }) {
           )}
 
           {/* Título o nombre */}
-          {userData?.title && (
+          {data?.title && (
             <div className="w-full absolute left-1/2 transform -translate-x-1/2">
-              <Link href="/xd" className="block text-center mx-auto text-lg font-bold text-gray-800">
-                {userData?.title}
-              </Link>
+              <p className="block text-center mx-auto text-lg font-bold text-gray-800">
+                {data?.title}
+              </p>
             </div>
           )}
 
@@ -129,7 +120,7 @@ export default function Header({ userData = USER_DATA }) {
                     </button>
                   </div>
                   <nav className="flex flex-col gap-1 text-gray-900 font-semibold text-lg">
-                    {userData?.menuLinks?.map((link, index) => (
+                    {data?.menuLinks?.map((link, index) => (
                       <Link
                         key={index}
                         href={link.link}
@@ -142,10 +133,10 @@ export default function Header({ userData = USER_DATA }) {
                   </nav>
 
                   {/* Botones para compartir */}
-                  {userData?.shareButtons?.length > 0 && (
+                  {shareButtons?.length > 0 && (
                     <div className="mt-8 border-t pt-6">
                       <div className="flex flex-wrap justify-center gap-6">
-                        {userData.shareButtons.map((button, index) => (
+                        {shareButtons.map((button, index) => (
                           <Link
                             key={index}
                             href={`${button.baseUrl}${encodeURIComponent(currentUrl)}`}

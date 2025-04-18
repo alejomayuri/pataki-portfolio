@@ -15,7 +15,7 @@ export default function Fotos({ data }) {
             whatsapp: `https://wa.me/?text=${url}`
         };
     };
-    console.log("data", data);
+    
     return (
         <div className="max-w-md mx-auto">
             {data?.text && (
