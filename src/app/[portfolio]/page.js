@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -10,20 +9,16 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 import Slideshow from "@/app/components/portfolio/Photos/Slideshow";
+import Skeleton from "../components/Skeleton";
+import { useUserSection } from "../hooks/useUserSection";
 
 export default function AboutMe() {
   const { portfolio } = useParams();
-  const [userData, setUserData] = useState(null);
+  const { data: userData, loading, error } = useUserSection(portfolio, "about");
 
-  useEffect(() => {
-    fetch(`/api/user?username=${portfolio}`)
-    .then(res => res.json())
-    .then(data => setUserData(data));
-  }, [portfolio]);
-
-  if (!userData) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
-  }
+  if (loading) return <Skeleton type="about" />;
+  if (error)   return <div className="text-center mt-10">Error: {error}</div>;
+  console.log("userData", userData);
 
   return (
     <div className="max-w-sm mx-auto text-center">

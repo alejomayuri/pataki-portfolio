@@ -1,7 +1,7 @@
 {
     "alejo": {
         "main-menu": {
-            "fixed": true,
+            "fixed": false,
             "image": "/demo/persona1.jpg",
             "title": "How it works Alejo Mayurí",
             "menuLinks": [
@@ -282,6 +282,126 @@
                             "link": "https://www.linkedin.com/in/juanperezfotografia",
                             "image": "/demo/image3.jpg"
                         }
+                    ]
+                }
+            ]
+        }
+    },
+    "lucia": {
+        "main-menu": {
+            "fixed": true,
+            "image": "/demo/persona2.jpg",
+            "title": "Lucía Flores",
+            "menuLinks": [
+                { "title": "Sobre mí", "link": "/lucia" },
+                { "title": "Retratos urbanos", "link": "/lucia/retratos-urbanos" },
+                { "title": "Viajes", "link": "/lucia/viajes" },
+                { "title": "Colaboraciones", "link": "/lucia/colaboraciones" },
+                { "title": "Contacto", "link": "/lucia/contacto" }
+            ]
+        },
+        "home": {
+            "image": "/demo/persona2.jpg",
+            "name": "Lucía Flores",
+            "social": {
+                "instagram": "https://www.instagram.com/lucia.flores",
+                "pinterest": "https://www.pinterest.com/luciaflores",
+                "facebook": "https://www.behance.net/luciaflores"
+            },
+            "text": [
+                {
+                    "title": "Fotografía como viaje interior",
+                    "text": "Trabajo con retratos en exteriores y me enfoco en capturar la relación entre personas y ciudad. Mis fotos tienen una estética suave y cálida. Esta es mi forma de explorar lo cotidiano."
+                }
+            ],
+            "amount": [
+                { "title": "Sesiones Realizadas", "value": "95" },
+                { "title": "Publicaciones en revistas", "value": "12" },
+                { "title": "Clientes felices", "value": "80+" }
+            ],
+            "callAction": {
+                "title": "Ver portfolio completo",
+                "link": "/lucia"
+            }
+        },
+        "retratos-urbanos": {
+            "type": "fotos",
+            "name": "Retratos urbanos",
+            "data": {
+                "text": {
+                    "title": "Retratos",
+                    "text": "Personas anónimas, momentos únicos. Esta serie fue tomada en Buenos Aires, Montevideo y Ciudad de México."
+                },
+                "albums": [
+                    {
+                        "title": "Serie Buenos Aires",
+                        "photos": [
+                            { "src": "/demo/image1.jpg", "alt": "Retrato urbano en Buenos Aires" },
+                            { "src": "/demo/image2.jpg", "alt": "Retrato al atardecer" }
+                        ]
+                    }
+                ]
+            }
+        },
+        "viajes": {
+            "type": "fotos",
+            "name": "Viajes",
+            "data": {
+                "text": {
+                "title": "Postales del camino",
+                "text": "Paisajes, colores y encuentros inesperados desde distintos lugares del mundo."
+                },
+                "albums": [
+                    {
+                        "title": "Portugal",
+                        "photos": [
+                            { "src": "/demo/image3.jpg", "alt": "Playa en Portugal" }
+                        ]
+                    }
+                ]
+            }
+        },
+        "colaboraciones": {
+            "type": "fotos",
+            "name": "Colaboraciones",
+            "data": {
+                "text": {
+                    "title": "Con otras marcas",
+                    "text": "Proyectos conjuntos con marcas de moda, revistas y espacios culturales."
+                },
+                "albums": [
+                    {
+                        "title": "Revista Bruma",
+                        "photos": [
+                            { "src": "/demo/image4.jpg", "alt": "Tapa para Bruma" }
+                        ]
+                    }
+                ]
+            }
+        },
+        "contacto": {
+            "image": "/demo/persona2.jpg",
+            "title": "Lucía Flores",
+            "social": {
+                "instagram": "https://www.instagram.com/lucia.flores",
+                "pinterest": "https://www.pinterest.com/luciaflores"
+            },
+            "linkGroup": [
+                {
+                    "title": "Redes",
+                    "links": [
+                        { "title": "Instagram", "link": "https://www.instagram.com/lucia.flores" },
+                        { "title": "Pinterest", "link": "https://www.pinterest.com/luciaflores" },
+                        { "title": "Instagram", "link": "https://www.instagram.com/lucia.flores" },
+                        { "title": "Pinterest", "link": "https://www.pinterest.com/luciaflores" },
+                        { "title": "Instagram", "link": "https://www.instagram.com/lucia.flores" },
+                        { "title": "Pinterest", "link": "https://www.pinterest.com/luciaflores" }
+                    ]
+                },
+                {
+                    "title": "Contacto directo",
+                    "links": [
+                        { "title": "Escribime", "link": "mailto:lucia@ejemplo.com" }
                     ]
                 }
             ]

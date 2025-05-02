@@ -55,7 +55,7 @@ export default function Header({ data }) {
   return (
     <>
       <header className={`mt-4 ${data?.fixed ? 'fixed' : ''} top-0 left-0 right-0 z-50 flex items-center justify-between max-w-md w-full px-2 mx-auto`}>
-        <div className={`flex relative mx-auto max-w-md rounded-full py-4 w-full items-center ${data?.image ? 'justify-between' : 'justify-end'} bg-white shadow-sm px-4 bg-white/80 backdrop-blur-sm`}>
+        <div className={`flex relative mx-auto max-w-md rounded-full py-2 w-full items-center ${data?.image ? 'justify-between' : 'justify-end'} bg-white shadow-sm px-4 bg-white/80 backdrop-blur-sm`}>
           {/* Logo o imagen */}
           {data?.image && (
             <div>

@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const username = searchParams.get("username");
-  const section = searchParams.get("section");
 
   if (!username) {
     return NextResponse.json({ error: "Missing username" }, { status: 400 });
@@ -19,17 +18,9 @@ export async function GET(req) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const userData = docSnap.data();
+    const { image, title, fixed, menuLinks } = docSnap.data();
 
-    if (section) {
-      const sectionData = userData[section];
-      if (!sectionData) {
-        return NextResponse.json({ error: "Section not found" }, { status: 404 });
-      }
-      return NextResponse.json(sectionData);
-    }
-
-    return NextResponse.json(userData);
+    return NextResponse.json({ image, title, fixed, menuLinks });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

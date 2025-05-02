@@ -8,6 +8,7 @@ import {
     FaInstagram,
     FaLinkedin,
   } from "react-icons/fa";
+import Skeleton from "@/app/components/Skeleton";
 
 export default function LinkTree() {
     const { portfolio } = useParams();
@@ -19,9 +20,8 @@ export default function LinkTree() {
         .then(data => setUserData(data));
     }, [portfolio]);
 
-    if (!userData) {
-        return <div className="flex items-center justify-center h-screen">Loading...</div>;
-    }
+    if (!userData) return <Skeleton type="contacto" />;
+
     return (
         <div className="max-w-sm mx-auto">
             {/* Imagen */}
