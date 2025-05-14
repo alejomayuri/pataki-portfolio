@@ -51,17 +51,17 @@ import {
 export default function Header({ data }) {
   const [isOpen, setIsOpen] = useState(false);
   const currentUrl = typeof window !== "undefined" ? window.location.href : "";
-
+  console.log("data", data);
   return (
     <>
       <header className={`mt-4 ${data?.fixed ? 'fixed' : ''} top-0 left-0 right-0 z-50 flex items-center justify-between max-w-md w-full px-2 mx-auto`}>
-        <div className={`flex relative mx-auto max-w-md rounded-full py-2 w-full items-center ${data?.image ? 'justify-between' : 'justify-end'} bg-white shadow-sm px-4 bg-white/80 backdrop-blur-sm`}>
+        <div className={`flex relative mx-auto max-w-md rounded-full py-2 w-full items-center ${data?.profileImage ? 'justify-between' : 'justify-end'} bg-white shadow-sm px-4 bg-white/80 backdrop-blur-sm`}>
           {/* Logo o imagen */}
-          {data?.image && (
+          {data?.profileImage && (
             <div>
               <Link href="/xd" className="flex items-center gap-2 z-99">
                 <img
-                  src={data?.image}
+                  src={data?.profileImage}
                   alt="Logo"
                   className="w-10 h-10 object-cover rounded-full border-2 border-gray-200 shadow-md"
                 />
@@ -157,7 +157,7 @@ export default function Header({ data }) {
                   {/* Invitación a crear portafolio */}
                   <div className="mt-10 text-left px-4">
                     <h3 className="text-base font-bold text-gray-800 mb-2">
-                      Únete a <span className="text-black">alejomayuri</span> en <span className="text-black">Pataki Portfolio</span>
+                      Únete a <span className="text-black">{data.username}</span> en <span className="text-black">Pataki Portfolio</span>
                     </h3>
                     <p className="text-gray-700 text-sm mb-4">
                       ¿Te gustaría tener tu propio portafolio como este?

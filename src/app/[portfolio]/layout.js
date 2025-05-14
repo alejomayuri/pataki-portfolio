@@ -11,18 +11,6 @@ export default function Layout({ children }) {
 
   if (!menu) return null;
 
-  // useEffect(() => {
-  //   const fetchMenu = async () => {
-  //     const res = await fetch(`/api/user?username=${portfolio}&section=main-menu`);
-  //     const data = await res.json();
-  //     setMenu(data);
-  //   };
-
-  //   if (portfolio) {
-  //     fetchMenu();
-  //   }
-  // }, [portfolio]);
-
   return (
     <div className="flex flex-col w-full min-h-screen bg-gradient-to-t from-white to-purple-300 text-gray-800 bg-fixed">
       <Header data={menu} />

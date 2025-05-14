@@ -11,16 +11,35 @@ export async function GET(req) {
   }
 
   try {
-    const docRef = doc(db, "usuarios", username);
-    const docSnap = await getDoc(docRef);
+    // Paso 1: Obtener UID desde /usernames/{username}
+    const usernameRef = doc(db, "usernames", username);
+    const usernameSnap = await getDoc(usernameRef);
 
-    if (!docSnap.exists()) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    if (!usernameSnap.exists()) {
+      return NextResponse.json({ error: "Username not found" }, { status: 404 });
     }
 
-    const { image, title, fixed, menuLinks } = docSnap.data();
+    const { uid } = usernameSnap.data();
 
-    return NextResponse.json({ image, title, fixed, menuLinks });
+    // Paso 2: Obtener datos reales desde /usuarios/{uid}
+    const userRef = doc(db, "usuarios", uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      return NextResponse.json({ error: "User data not found" }, { status: 404 });
+    }
+
+    const userData = userSnap.data();
+    const { portfolio = {} } = userData;
+    const { profileImage, title, fixed, menuLinks } = portfolio;
+
+    return NextResponse.json({ 
+      username,
+      profileImage,
+      title,
+      fixed,
+      menuLinks
+    });
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
