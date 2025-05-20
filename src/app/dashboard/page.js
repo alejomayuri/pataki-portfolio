@@ -28,7 +28,7 @@ export default function DashboardPage() {
 
     fetchUsername();
   }, [user]);
-  console.log("user", user);
+  
   if (loading || checkingUsername) return <p>Cargando...</p>;
 
   if (!user) {
@@ -36,15 +36,11 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Bienvenido, {user.email}</h1>
-      <p className="mb-2">Tu ID de usuario es: {user.uid}</p>
-      <p className="mb-6">Tu email es: {user.email}</p>
-
+    <div className="p-6 mx-auto">
       {!hasUsername ? (
         <FormularioUsername onUsernameCreated={() => setHasUsername(true)} />
       ) : (
-        <UserDataForm />
+        <UserDataForm user={user} />
       )}
     </div>
   );

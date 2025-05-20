@@ -48,10 +48,10 @@ import {
   ]
 
 
-export default function Header({ data }) {
+export default function Header({ data, preview = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const currentUrl = typeof window !== "undefined" ? window.location.href : "";
-  console.log("data", data);
+  
   return (
     <>
       <header className={`mt-4 ${data?.fixed ? 'fixed' : ''} top-0 left-0 right-0 z-50 flex items-center justify-between max-w-md w-full px-2 mx-auto`}>
@@ -83,6 +83,7 @@ export default function Header({ data }) {
             onClick={() => setIsOpen(true)}
             className="text-gray-800 z-99"
             aria-label="Abrir menú"
+            disabled={preview}
           >
             <Menu size={28} />
           </button>

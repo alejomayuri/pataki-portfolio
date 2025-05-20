@@ -1,19 +1,45 @@
-// src/components/dashboard/UserDataForm.jsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { useUser } from "@/context/UserContext";
+import LateralMenu from "./LateralMenu";
+import HeaderForm from "./HeaderForm";
+import useUsername from "@/app/hooks/useUserName";
+import useUserMenu from "@/app/hooks/useUserMenu";
+import Preview from "./Preview";
 
-export default function UserDataForm() {
-  const { user } = useUser();
+const MENU_ITEMS = ["Inicio", "Sobre mí", "Páginas", "Linktree", "Diseño", "Ajustes"];
+
+export default function UserDataForm({ user }) {
+  const [activeSection, setActiveSection] = useState("Sobre mí");
   const [title, setTitle] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const username  = useUsername(user.uid);
+  const actualMenu = useUserMenu(username);
+  const [menu, setMenu] = useState({
+    title: "",
+    profileImage: "",
+  })
 
+  useEffect(() => {
+    if (actualMenu?.title && !title) {
+      setTitle(actualMenu.title);
+    }
+    if (actualMenu?.profileImage && !profileImage) {
+      setProfileImage(actualMenu.profileImage);
+    }
+    if (actualMenu?.title && actualMenu?.profileImage) {
+      setMenu({
+        title: title,
+        profileImage: profileImage,
+      });
+    }
+  }, [actualMenu, title, profileImage]);
+    
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) return;
@@ -52,7 +78,6 @@ export default function UserDataForm() {
       });
 
       const data = await res.json();
-      console.log("Cloudinary response:", data);
       if (data.secure_url) {
         setProfileImage(data.secure_url);
       } else {
@@ -66,63 +91,38 @@ export default function UserDataForm() {
   };
 
   return (
-    <div className="bg-white shadow-xl p-6 rounded-xl w-full max-w-xl">
-      <h2 className="text-xl font-semibold mb-4">Personaliza tu portafolio</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">Título o nombre para mostrar</label>
-          <input
-            type="text"
-            placeholder="Diseñador freelance, Ilustrador, etc."
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-black"
-          />
-        </div>
+    <div className="flex h-screen">
+      {/* Menú lateral */}
+      <LateralMenu menuItems={MENU_ITEMS} activeSection={activeSection} setActiveSection={setActiveSection} />
 
-        <div>
-          <label className="block text-sm font-medium mb-1">Sube tu foto de perfil</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="w-full border border-gray-300 rounded-xl p-3"
-          />
-          {uploading && <p className="text-sm text-gray-500">Subiendo imagen...</p>}
-          {profileImage && (
-            <img
-              src={profileImage}
-              alt="Preview"
-              className="mt-2 w-24 h-24 rounded-full object-cover"
-            />
-          )}
-        </div>
+      {/* Contenido central (Preview + Formulario) */}
+      <main className="flex flex-1">
+        {/* Vista previa */}
+        <Preview menu={menu} />
 
-        <button
-          type="submit"
-          className="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 disabled:opacity-50"
-          disabled={loading}
-        >
-          {loading ? "Guardando..." : "Guardar cambios"}
-        </button>
-
-        {success && <p className="text-green-600 mt-2">¡Datos guardados con éxito!</p>}
-      </form>
-      {(title || profileImage) && (
-        <div className="mt-8 p-4 bg-gray-50 rounded-xl shadow">
-          <h3 className="text-lg font-semibold mb-2">Vista previa de tu perfil</h3>
-          <div className="flex items-center space-x-4">
-            {profileImage && (
-              <img
-                src={profileImage}
-                alt="Preview"
-                className="w-16 h-16 rounded-full object-cover border"
+        {/* Formulario */}
+        <section className="w-[480px] p-6 overflow-auto bg-white">
+          {activeSection === "Sobre mí" ? (
+            <>
+              <h2 className="text-xl font-semibold mb-4">Personaliza tu portafolio</h2>
+              <HeaderForm
+                handleSubmit={handleSubmit}
+                handleImageUpload={handleImageUpload}
+                loading={loading}
+                success={success}
+                uploading={uploading}
+                profileImage={profileImage}
+                title={title}
+                setTitle={setTitle}
               />
-            )}
-            <div className="text-gray-800 text-base font-medium">{title || "Tu título aparecerá aquí"}</div>
-          </div>
-        </div>
-      )}
+            </>
+          ) : (
+            <div className="text-gray-500">
+              <p>Sección <strong>{activeSection}</strong> en construcción.</p>
+            </div>
+          )}
+        </section>
+      </main>
     </div>
   );
 }
