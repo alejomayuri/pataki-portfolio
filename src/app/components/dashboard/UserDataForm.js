@@ -5,41 +5,68 @@ import { db } from "@/lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import LateralMenu from "./LateralMenu";
 import HeaderForm from "./HeaderForm";
+import AboutForm from "./AboutForm";
 import useUsername from "@/app/hooks/useUserName";
+import { useUserSection } from "@/app/hooks/useUserSection";
 import useUserMenu from "@/app/hooks/useUserMenu";
 import Preview from "./Preview";
 
 const MENU_ITEMS = ["Inicio", "Sobre mí", "Páginas", "Linktree", "Diseño", "Ajustes"];
 
+// Datos iniciales para el formulario
+const USER_ABOUT_DATA = {
+  title: "",
+  profileImage: "",
+  about: {
+    mainImage: "",
+    mainName: "",
+    social: {
+      facebook: "",
+      twitter: "",
+      instagram: "",
+      linkedin: "",
+    }
+  }
+};
+
 export default function UserDataForm({ user }) {
   const [activeSection, setActiveSection] = useState("Sobre mí");
-  const [title, setTitle] = useState("");
-  const [profileImage, setProfileImage] = useState("");
+  const [userDataForm, setUserDataForm] = useState(USER_ABOUT_DATA);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const username  = useUsername(user.uid);
-  const actualMenu = useUserMenu(username);
-  const [menu, setMenu] = useState({
-    title: "",
-    profileImage: "",
-  })
 
+  const username = useUsername(user.uid);
+  const {data: aboutData} = useUserSection(username, "about");
+  const actualMenu = useUserMenu(username);
+  console.log("userData", aboutData);
+  console.log("userDataForm", userDataForm);
+
+  // Hidratación inicial con datos del menú
   useEffect(() => {
-    if (actualMenu?.title && !title) {
-      setTitle(actualMenu.title);
+    if (actualMenu) {
+      setUserDataForm(prev => ({
+        ...prev,
+        title: actualMenu.title || prev.title,
+        profileImage: actualMenu.profileImage || prev.profileImage,
+      }));
     }
-    if (actualMenu?.profileImage && !profileImage) {
-      setProfileImage(actualMenu.profileImage);
+
+    if (aboutData) {
+      setUserDataForm(prev => ({
+        ...prev,
+        about: aboutData
+      }));
     }
-    if (actualMenu?.title && actualMenu?.profileImage) {
-      setMenu({
-        title: title,
-        profileImage: profileImage,
-      });
-    }
-  }, [actualMenu, title, profileImage]);
-    
+  }, [actualMenu, aboutData]);
+
+  // Derivar datos para la vista previa
+  const menu = {
+    title: userDataForm.title,
+    profileImage: userDataForm.profileImage,
+  };
+
+  // Envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) return;
@@ -50,8 +77,8 @@ export default function UserDataForm({ user }) {
     try {
       const userRef = doc(db, "usuarios", user.uid);
       await updateDoc(userRef, {
-        "portfolio.title": title,
-        "portfolio.profileImage": profileImage,
+        "portfolio.title": userDataForm.title,
+        "portfolio.profileImage": userDataForm.profileImage,
       });
       setSuccess(true);
     } catch (err) {
@@ -61,7 +88,8 @@ export default function UserDataForm({ user }) {
     }
   };
 
-  const handleImageUpload = async (e) => {
+  // Subida de imagen reutilizable
+  const handleImageUpload = async (e, setImageCallback) => {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -79,7 +107,7 @@ export default function UserDataForm({ user }) {
 
       const data = await res.json();
       if (data.secure_url) {
-        setProfileImage(data.secure_url);
+        setImageCallback(data.secure_url);
       } else {
         console.error("Error al subir la imagen a Cloudinary:", data);
       }
@@ -92,33 +120,61 @@ export default function UserDataForm({ user }) {
 
   return (
     <div className="flex h-screen">
-      {/* Menú lateral */}
-      <LateralMenu menuItems={MENU_ITEMS} activeSection={activeSection} setActiveSection={setActiveSection} />
+      <LateralMenu
+        menuItems={MENU_ITEMS}
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+      />
 
-      {/* Contenido central (Preview + Formulario) */}
       <main className="flex flex-1">
-        {/* Vista previa */}
-        <Preview menu={menu} />
+        <Preview menu={menu} aboutData={userDataForm?.about} />
 
-        {/* Formulario */}
         <section className="w-[480px] p-6 overflow-auto bg-white">
           {activeSection === "Sobre mí" ? (
             <>
               <h2 className="text-xl font-semibold mb-4">Personaliza tu portafolio</h2>
               <HeaderForm
                 handleSubmit={handleSubmit}
-                handleImageUpload={handleImageUpload}
+                handleImageUpload={(e) =>
+                  handleImageUpload(e, (url) =>
+                    setUserDataForm((prev) => ({ ...prev, profileImage: url }))
+                  )
+                }
                 loading={loading}
                 success={success}
                 uploading={uploading}
-                profileImage={profileImage}
-                title={title}
-                setTitle={setTitle}
+                profileImage={userDataForm.profileImage}
+                title={userDataForm.title}
+                setTitle={(value) =>
+                  setUserDataForm((prev) => ({ ...prev, title: value }))
+                }
+              />
+              <AboutForm
+                user={user}
+                currentImage={userDataForm.about.mainImage}
+                currentName={userDataForm.about.mainName}
+                currentSocial={userDataForm.about.social}
+                handleImageUpload={(e) =>
+                  handleImageUpload(e, (url) => 
+                    setUserDataForm((prev) => ({...prev, about: { ...prev.about, mainImage: url }}))
+                  )
+                }
+                setName={(value) =>
+                  setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, mainName: value }}))
+                }
+                setSocial={(social) =>
+                  setUserDataForm((prev) => ({
+                    ...prev,
+                    about: { ...prev.about, social },
+                  }))
+                }
               />
             </>
           ) : (
             <div className="text-gray-500">
-              <p>Sección <strong>{activeSection}</strong> en construcción.</p>
+              <p>
+                Sección <strong>{activeSection}</strong> en construcción.
+              </p>
             </div>
           )}
         </section>

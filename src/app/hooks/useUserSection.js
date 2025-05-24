@@ -1,4 +1,3 @@
-// hooks/useUserSection.js
 import { useState, useEffect } from "react";
 
 export function useUserSection(username, section = "about") {

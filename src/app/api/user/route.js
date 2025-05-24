@@ -12,7 +12,18 @@ export async function GET(req) {
   }
 
   try {
-    const docRef = doc(db, "usuarios", username);
+    // Paso 1: Obtener UID desde /usernames/{username}
+    const usernameRef = doc(db, "usernames", username);
+    const usernameSnap = await getDoc(usernameRef);
+
+    if (!usernameSnap.exists()) {
+      return NextResponse.json({ error: "Username not found" }, { status: 404 });
+    }
+
+    const { uid } = usernameSnap.data()
+
+    // Paso 2: Obtener datos reales desde /usuarios/{uid}
+    const docRef = doc(db, "usuarios", uid);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
@@ -22,7 +33,7 @@ export async function GET(req) {
     const userData = docSnap.data();
 
     if (section) {
-      const sectionData = userData[section];
+      const sectionData = userData["portfolio"][section];
       if (!sectionData) {
         return NextResponse.json({ error: "Section not found" }, { status: 404 });
       }

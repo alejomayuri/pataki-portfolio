@@ -10,6 +10,8 @@ import {
 } from "react-icons/fa";
 import Slideshow from "@/app/components/portfolio/Photos/Slideshow";
 import Skeleton from "../components/Skeleton";
+import MainImage from "../components/portfolio/aboutPage/MainImage";
+import NetworkButtons from "../components/portfolio/aboutPage/NetworkButtons";
 import { useUserSection } from "../hooks/useUserSection";
 
 export default function AboutMe() {
@@ -23,38 +25,12 @@ export default function AboutMe() {
   return (
     <div className="max-w-sm mx-auto text-center">
       {/* Imagen */}
-      {userData?.image && (
-        <>
-            <div className="mt-8 mb-6">
-                <img
-                    src={userData?.image}
-                    alt="Foto de perfil"
-                    className="w-full h-auto rounded-xl shadow-md"
-                />
-            </div>
-            <h1 className="text-lg font-bold mb-4">{userData?.name}</h1>
-        </>
+      {userData?.mainImage && (
+        <MainImage image={userData?.mainImage} name={userData?.mainName} />
       )}
 
       {/* Redes sociales */}
-      {userData?.social && (
-        <section className="mt-10">
-          <div className="flex justify-center gap-6">
-            <a href={userData?.social?.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition duration-300">
-              <FaFacebook size={28} />
-            </a>
-            <a href={userData?.social?.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600 transition duration-300">
-              <FaTwitter size={28} />
-            </a>
-            <a href={userData?.social?.instagram} target="_blank" rel="noopener noreferrer" className="text-pink-500 hover:text-pink-700 transition duration-300">
-              <FaInstagram size={28} />
-            </a>
-            <a href={userData?.social?.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:text-blue-900 transition duration-300">
-              <FaLinkedin size={28} />
-            </a>
-          </div>
-        </section>
-      )}
+      {userData?.social && <NetworkButtons data={userData?.social} />}
         
       {/* Texto */}
       {userData?.text && userData?.text?.length > 0 && (
