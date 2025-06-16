@@ -3,6 +3,7 @@
 import Header from "../portfolio/Header";
 import MainImage from "../portfolio/aboutPage/MainImage";
 import NetworkButtons from "../portfolio/aboutPage/NetworkButtons";
+import Description from "../portfolio/aboutPage/Description";
 
 export default function Preview({ menu, aboutData }) {
     return (
@@ -14,6 +15,7 @@ export default function Preview({ menu, aboutData }) {
                     <div className="max-w-sm mx-auto text-center">
                         {aboutData?.mainImage && <MainImage image={aboutData.mainImage} name={aboutData.mainName} />}
                         {aboutData?.social && <NetworkButtons data={aboutData?.social} />}
+                        {aboutData?.description && <Description description={aboutData.description} />}
                     </div>
                 </div>
             </div>

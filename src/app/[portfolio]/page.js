@@ -12,6 +12,7 @@ import Slideshow from "@/app/components/portfolio/Photos/Slideshow";
 import Skeleton from "../components/Skeleton";
 import MainImage from "../components/portfolio/aboutPage/MainImage";
 import NetworkButtons from "../components/portfolio/aboutPage/NetworkButtons";
+import Description from "../components/portfolio/aboutPage/Description";
 import { useUserSection } from "../hooks/useUserSection";
 
 export default function AboutMe() {
@@ -33,15 +34,10 @@ export default function AboutMe() {
       {userData?.social && <NetworkButtons data={userData?.social} />}
         
       {/* Texto */}
-      {userData?.text && userData?.text?.length > 0 && (
-        <section className="mt-10">
-            {userData?.text.map((block, index) => (
-            <div key={index} className="mb-8">
-                {block?.title && <h2 className="text-lg font-bold mb-4">{block?.title}</h2>}
-                <p className="text-gray-700">{block?.text}</p>
-            </div>
-            ))}
-        </section>
+      {userData?.description && (
+        <>
+          <Description description={userData?.description} />
+        </>
       )}
 
       {/* Cifras destacadas */}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
-export default function AboutForm({ user, currentImage, currentName, currentSocial, setName, setSocial, handleImageUpload }) {
+export default function AboutForm({ user, currentImage, currentName, currentSocial, currentDescription, setName, setSocial, setDescription, handleImageUpload }) {
   const [uploading, setUploading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,6 +24,7 @@ export default function AboutForm({ user, currentImage, currentName, currentSoci
           instagram: currentSocial?.instagram || "",
           linkedin: currentSocial?.linkedin || "",
         },
+        "portfolio.about.description": currentDescription || ""
       });
       setSuccess(true);
     } catch (err) {
@@ -86,6 +87,17 @@ export default function AboutForm({ user, currentImage, currentName, currentSoci
                     className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-black"
                 />
             </div>
+        </label>
+
+        <label>
+          <span className ="text-sm font-medium">Descripción</span>
+          <textarea
+            placeholder="Escribe una breve descripción sobre ti..."
+            className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-black"
+            rows="4"
+            value={currentDescription || ""}
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </label>
         <button
             onClick={handleSave}

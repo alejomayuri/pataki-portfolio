@@ -25,7 +25,8 @@ const USER_ABOUT_DATA = {
       twitter: "",
       instagram: "",
       linkedin: "",
-    }
+    },
+    description: "",
   }
 };
 
@@ -154,6 +155,7 @@ export default function UserDataForm({ user }) {
                 currentImage={userDataForm.about.mainImage}
                 currentName={userDataForm.about.mainName}
                 currentSocial={userDataForm.about.social}
+                currentDescription={userDataForm.about.description}
                 handleImageUpload={(e) =>
                   handleImageUpload(e, (url) => 
                     setUserDataForm((prev) => ({...prev, about: { ...prev.about, mainImage: url }}))
@@ -166,6 +168,12 @@ export default function UserDataForm({ user }) {
                   setUserDataForm((prev) => ({
                     ...prev,
                     about: { ...prev.about, social },
+                  }))
+                }
+                setDescription={(value) =>
+                  setUserDataForm((prev) => ({
+                    ...prev,
+                    about: { ...prev.about, description: value },
                   }))
                 }
               />
