@@ -13,6 +13,8 @@ import Skeleton from "../components/Skeleton";
 import MainImage from "../components/portfolio/aboutPage/MainImage";
 import NetworkButtons from "../components/portfolio/aboutPage/NetworkButtons";
 import Description from "../components/portfolio/aboutPage/Description";
+import Amounts from "../components/portfolio/aboutPage/Amounts";
+import CallAction from "../components/portfolio/aboutPage/CallAction";
 import { useUserSection } from "../hooks/useUserSection";
 
 export default function AboutMe() {
@@ -26,49 +28,19 @@ export default function AboutMe() {
   return (
     <div className="max-w-sm mx-auto text-center">
       {/* Imagen */}
-      {userData?.mainImage && (
-        <MainImage image={userData?.mainImage} name={userData?.mainName} />
-      )}
+      {userData?.mainImage && <MainImage image={userData?.mainImage} name={userData?.mainName} />}
 
       {/* Redes sociales */}
       {userData?.social && <NetworkButtons data={userData?.social} />}
         
       {/* Texto */}
-      {userData?.description && (
-        <>
-          <Description description={userData?.description} />
-        </>
-      )}
+      {userData?.description && <Description description={userData?.description} />}
 
       {/* Cifras destacadas */}
-      {userData?.amount && userData?.amount?.length > 0 && (
-        <section className="mt-10">
-            <div className="grid grid-cols-2 gap-6">
-            {userData?.amount.map((item, index) => (
-                <div
-                key={index}
-                className="flex flex-col items-center justify-center bg-white rounded-xl shadow-md p-4 border border-gray-100"
-                >
-                <span className="text-2xl font-extrabold text-gray-900">{item?.value}</span>
-                <span className="text-sm text-gray-500 mt-1 text-center">{item?.title}</span>
-                </div>
-            ))}
-            </div>
-      </section>
-      )}
+      {userData?.amount && userData?.amount?.length > 0 && <Amounts amounts={userData?.amount} />}
 
       {/* Call action */}
-      {userData?.callAction && (
-        <section className="mt-10">
-            <a
-                href={userData?.callAction?.link}
-                download
-                className="inline-flex items-center gap-2 bg-gray-900 text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-md hover:bg-gray-700 transition"
-            >
-                {userData?.callAction?.title}
-            </a>
-        </section>
-        )}
+      {userData?.callAction && <CallAction callActions={userData?.callAction} />}
 
       {/* Preview Fotos */}
       {userData?.preview?.fotos && userData?.preview?.fotos?.length > 0 && (

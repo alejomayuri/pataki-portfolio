@@ -27,6 +27,8 @@ const USER_ABOUT_DATA = {
       linkedin: "",
     },
     description: "",
+    amount: [],
+    callAction: []
   }
 };
 
@@ -40,8 +42,6 @@ export default function UserDataForm({ user }) {
   const username = useUsername(user.uid);
   const {data: aboutData} = useUserSection(username, "about");
   const actualMenu = useUserMenu(username);
-  console.log("userData", aboutData);
-  console.log("userDataForm", userDataForm);
 
   // Hidratación inicial con datos del menú
   useEffect(() => {
@@ -156,6 +156,8 @@ export default function UserDataForm({ user }) {
                 currentName={userDataForm.about.mainName}
                 currentSocial={userDataForm.about.social}
                 currentDescription={userDataForm.about.description}
+                currentAmount={userDataForm.about.amount}
+                currentCallAction={userDataForm.about.callAction}
                 handleImageUpload={(e) =>
                   handleImageUpload(e, (url) => 
                     setUserDataForm((prev) => ({...prev, about: { ...prev.about, mainImage: url }}))
@@ -165,16 +167,16 @@ export default function UserDataForm({ user }) {
                   setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, mainName: value }}))
                 }
                 setSocial={(social) =>
-                  setUserDataForm((prev) => ({
-                    ...prev,
-                    about: { ...prev.about, social },
-                  }))
+                  setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, social }}))
                 }
                 setDescription={(value) =>
-                  setUserDataForm((prev) => ({
-                    ...prev,
-                    about: { ...prev.about, description: value },
-                  }))
+                  setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, description: value }}))
+                }
+                setAmount={(amount) =>
+                  setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, amount }}))
+                }
+                setCallAction={(callAction) =>
+                  setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, callAction }}))
                 }
               />
             </>

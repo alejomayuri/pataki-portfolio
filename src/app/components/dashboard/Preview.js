@@ -4,6 +4,8 @@ import Header from "../portfolio/Header";
 import MainImage from "../portfolio/aboutPage/MainImage";
 import NetworkButtons from "../portfolio/aboutPage/NetworkButtons";
 import Description from "../portfolio/aboutPage/Description";
+import Amounts from "../portfolio/aboutPage/Amounts";
+import CallAction from "../portfolio/aboutPage/CallAction";
 
 export default function Preview({ menu, aboutData }) {
     return (
@@ -16,6 +18,8 @@ export default function Preview({ menu, aboutData }) {
                         {aboutData?.mainImage && <MainImage image={aboutData.mainImage} name={aboutData.mainName} />}
                         {aboutData?.social && <NetworkButtons data={aboutData?.social} />}
                         {aboutData?.description && <Description description={aboutData.description} />}
+                        {aboutData?.amount && aboutData?.amount?.length > 0 && <Amounts amounts={aboutData.amount} />}
+                        {aboutData?.callAction && aboutData?.callAction?.length > 0 && <CallAction callActions={aboutData.callAction} />}
                     </div>
                 </div>
             </div>

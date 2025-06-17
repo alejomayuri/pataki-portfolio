@@ -1,12 +1,28 @@
 import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import AmountForm from "./aboutForm/AmountForm";
+import CallActionForm from "./aboutForm/CallActionForm";
 
-export default function AboutForm({ user, currentImage, currentName, currentSocial, currentDescription, setName, setSocial, setDescription, handleImageUpload }) {
+export default function AboutForm({ 
+  user, 
+  currentImage, 
+  currentName, 
+  currentSocial, 
+  currentDescription, 
+  currentAmount, 
+  currentCallAction,
+  setName, 
+  setSocial, 
+  setDescription, 
+  setAmount, 
+  setCallAction,
+  handleImageUpload }) {
+
   const [uploading, setUploading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-    console.log("currentSocial", currentSocial);
+  
   const handleSave = async () => {
     if (!user || !currentImage || !currentName) return;
 
@@ -24,7 +40,9 @@ export default function AboutForm({ user, currentImage, currentName, currentSoci
           instagram: currentSocial?.instagram || "",
           linkedin: currentSocial?.linkedin || "",
         },
-        "portfolio.about.description": currentDescription || ""
+        "portfolio.about.description": currentDescription || "",
+        "portfolio.about.amount": currentAmount || [],
+        "portfolio.about.callAction": currentCallAction || [],
       });
       setSuccess(true);
     } catch (err) {
@@ -37,7 +55,7 @@ export default function AboutForm({ user, currentImage, currentName, currentSoci
   return (
     <div className="space-y-4">
         <label className="block">
-            <span className="text-sm font-medium">Imagen principal del about</span>
+            <h3 className="text-lg font-semibold">Imagen principal del about</h3>
             <input type="file" accept="image/*" onChange={handleImageUpload} className="mt-1" />
         </label>
 
@@ -46,7 +64,7 @@ export default function AboutForm({ user, currentImage, currentName, currentSoci
         )}
 
         <label className="block">
-            <span className="text-sm font-medium">Nombre para mostrar</span>
+            <h3 className="text-lg font-semibold">Nombre para mostrar</h3>
             <input
                 type="text"
                 value={currentName}
@@ -56,7 +74,7 @@ export default function AboutForm({ user, currentImage, currentName, currentSoci
         </label>
 
         <label className="block">
-            <span className ="text-sm font-medium">Redes sociales</span>
+            <h3 className="text-lg font-semibold">Redes sociales</h3>
             <div>
                 <input
                     type="text"
@@ -90,7 +108,7 @@ export default function AboutForm({ user, currentImage, currentName, currentSoci
         </label>
 
         <label>
-          <span className ="text-sm font-medium">Descripción</span>
+          <h3 className="text-lg font-semibold">Descripción</h3>
           <textarea
             placeholder="Escribe una breve descripción sobre ti..."
             className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-black"
@@ -98,6 +116,18 @@ export default function AboutForm({ user, currentImage, currentName, currentSoci
             value={currentDescription || ""}
             onChange={(e) => setDescription(e.target.value)}
           />
+        </label>
+        <label>
+            <AmountForm
+                amountData={currentAmount || []}
+                setAmountData={(amount) => setAmount(amount)}
+            />
+        </label>
+        <label>
+            <CallActionForm
+                callActionData={currentCallAction || []}
+                setCallActionData={(callAction) => setCallAction(callAction)}
+            />
         </label>
         <button
             onClick={handleSave}
