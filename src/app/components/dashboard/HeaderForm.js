@@ -1,4 +1,41 @@
-export default function HeaderForm({ handleSubmit, handleImageUpload, loading, success, uploading, profileImage, title, setTitle }) {
+import { useState } from "react";
+import { db } from "@/lib/firebase";
+import { doc, updateDoc } from "firebase/firestore";
+
+export default function HeaderForm({ user, userDataForm, setUserDataForm, imageUploader, uploading }) {
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+
+    const setTitle = (title) => {
+        setUserDataForm((prev) => ({ ...prev, title }));
+    };
+
+    const handleImageUpload = (e) => {
+        imageUploader(e, (url) => 
+            setUserDataForm((prev) => ({...prev, profileImage: url }))
+        )
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!user) return;
+
+        setLoading(true);
+        setSuccess(false);
+
+        try {
+        const userRef = doc(db, "usuarios", user.uid);
+        await updateDoc(userRef, {
+            "portfolio.title": userDataForm?.title,
+            "portfolio.profileImage": userDataForm?.profileImage,
+        });
+        setSuccess(true);
+        } catch (err) {
+        console.error("Error al guardar los datos:", err);
+        } finally {
+        setLoading(false);
+        }
+    };
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -6,7 +43,7 @@ export default function HeaderForm({ handleSubmit, handleImageUpload, loading, s
                 <input
                     type="text"
                     placeholder="Diseñador freelance, Ilustrador, etc."
-                    value={title}
+                    value={userDataForm?.title}
                     onChange={(e) => setTitle(e.target.value)}
                     className="w-full border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-black"
                 />
@@ -21,9 +58,9 @@ export default function HeaderForm({ handleSubmit, handleImageUpload, loading, s
                     className="w-full border border-gray-300 rounded-xl p-3"
                 />
                 {uploading && <p className="text-sm text-gray-500">Subiendo imagen...</p>}
-                {profileImage && (
+                {userDataForm?.profileImage && (
                     <img
-                        src={profileImage}
+                        src={userDataForm?.profileImage}
                         alt="Preview"
                         className="mt-2 w-24 h-24 rounded-full object-cover"
                     />

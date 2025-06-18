@@ -3,28 +3,50 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import AmountForm from "./aboutForm/AmountForm";
 import CallActionForm from "./aboutForm/CallActionForm";
+import Description from "./aboutForm/Description";
+import Social from "./aboutForm/Social";
+import Name from "./aboutForm/Name";
 
 export default function AboutForm({ 
-  user, 
-  currentImage, 
-  currentName, 
-  currentSocial, 
-  currentDescription, 
-  currentAmount, 
-  currentCallAction,
-  setName, 
-  setSocial, 
-  setDescription, 
-  setAmount, 
-  setCallAction,
-  handleImageUpload }) {
+  user,
+  uploading,
+  userDataForm,
+  setUserDataForm,
+  // setName, 
+  // setSocial, 
+  // setDescription, 
+  // setAmount, 
+  // setCallAction,
+  // handleImageUpload,
+  imageUploader
+}) {
 
-  const [uploading, setUploading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const handleImageUpload = (e) => {
+    imageUploader(e, (url) => 
+      setUserDataForm((prev) => ({...prev, about: { ...prev.about, mainImage: url }}))
+    )
+  }
+  const setName = (name) => {
+    setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, mainName: name } }))
+  }
+  const setSocial = (social) => {
+    setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, social }}))
+  }
+  const setDescription = (description) => {
+    setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, description } }))
+  }
+  const setAmount = (amount) => {
+    setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, amount } }))
+  }
+  const setCallAction = (callAction) => {
+    setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, callAction } }))
+  }
   
   const handleSave = async () => {
-    if (!user || !currentImage || !currentName) return;
+    if (!user || !userDataForm?.about?.mainImage || !userDataForm?.about?.mainName) return;
 
     setLoading(true);
     setSuccess(false);
@@ -32,17 +54,17 @@ export default function AboutForm({
     try {
       const userRef = doc(db, "usuarios", user.uid);
       await updateDoc(userRef, {
-        "portfolio.about.mainImage": currentImage,
-        "portfolio.about.mainName": currentName,
+        "portfolio.about.mainImage": userDataForm?.about?.mainImage,
+        "portfolio.about.mainName": userDataForm?.about?.mainName,
         "portfolio.about.social": {
-          facebook: currentSocial?.facebook || "",
-          twitter: currentSocial?.twitter || "",
-          instagram: currentSocial?.instagram || "",
-          linkedin: currentSocial?.linkedin || "",
+          facebook: userDataForm?.about?.social?.facebook || "",
+          twitter: userDataForm?.about?.social?.twitter || "",
+          instagram: userDataForm?.about?.social?.instagram || "",
+          linkedin: userDataForm?.about?.social?.linkedin || "",
         },
-        "portfolio.about.description": currentDescription || "",
-        "portfolio.about.amount": currentAmount || [],
-        "portfolio.about.callAction": currentCallAction || [],
+        "portfolio.about.description": userDataForm?.about?.description || "",
+        "portfolio.about.amount": userDataForm?.about?.amount || [],
+        "portfolio.about.callAction": userDataForm?.about?.callAction || [],
       });
       setSuccess(true);
     } catch (err) {
@@ -59,73 +81,44 @@ export default function AboutForm({
             <input type="file" accept="image/*" onChange={handleImageUpload} className="mt-1" />
         </label>
 
-        {currentImage && (
-            <img src={currentImage} alt="Main About" className="w-full rounded-md shadow-md" />
+        {userDataForm?.about?.mainImage && (
+            <img src={userDataForm?.about?.mainImage} alt="Main About" className="w-full rounded-md shadow-md" />
         )}
 
         <label className="block">
             <h3 className="text-lg font-semibold">Nombre para mostrar</h3>
-            <input
-                type="text"
-                value={currentName}
-                onChange={(e) => setName(e.target.value)}
-                className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-black"
+            <Name
+                data={userDataForm?.about?.mainName || ""}
+                setData={(name) => setName(name)}
             />
         </label>
 
         <label className="block">
             <h3 className="text-lg font-semibold">Redes sociales</h3>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Facebook"
-                    value={currentSocial?.facebook || ""}
-                    onChange={(e) => setSocial({ ...currentSocial, facebook: e.target.value })}
-                    className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-black"
-                />
-                <input
-                    type="text"
-                    placeholder="Twitter"
-                    value={currentSocial?.twitter || ""}
-                    onChange={(e) => setSocial({ ...currentSocial, twitter: e.target.value })}
-                    className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-black"
-                />
-                <input
-                    type="text"
-                    placeholder="Instagram"
-                    value={currentSocial?.instagram || ""}
-                    onChange={(e) => setSocial({ ...currentSocial, instagram: e.target.value })}
-                    className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-black"
-                />
-                <input
-                    type="text"
-                    placeholder="LinkedIn"
-                    value={currentSocial?.linkedin || ""}
-                    onChange={(e) => setSocial({ ...currentSocial, linkedin: e.target.value })}
-                    className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-black"
-                />
-            </div>
+            <Social
+                data={userDataForm?.about?.social || ""}
+                setData={(social) => setSocial(social)}
+            />
         </label>
 
         <label>
-          <h3 className="text-lg font-semibold">Descripción</h3>
-          <textarea
-            placeholder="Escribe una breve descripción sobre ti..."
-            className="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-black"
-            rows="4"
-            value={currentDescription || ""}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+            <h3 className="text-lg font-semibold">Descripción</h3>
+            <Description
+                data={userDataForm?.about?.description || ""}
+                setData={(description) => setDescription(description)}
+            />
         </label>
         <label>
+            <h3 className="text-lg font-semibold">Cifras destacadas</h3>
             <AmountForm
-                amountData={currentAmount || []}
+                amountData={userDataForm?.about?.amount || []}
                 setAmountData={(amount) => setAmount(amount)}
             />
         </label>
         <label>
+            <h3 className="text-lg font-semibold">Links destacados</h3>
             <CallActionForm
-                callActionData={currentCallAction || []}
+                callActionData={userDataForm?.about?.callAction || []}
                 setCallActionData={(callAction) => setCallAction(callAction)}
             />
         </label>

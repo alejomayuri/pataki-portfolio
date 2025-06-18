@@ -16,7 +16,6 @@ export default function AmountForm({ amountData, setAmountData }) {
 
     return (
         <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Cifras destacadas</h3>
 
             {amountData.map((item, index) => (
                 <div key={index} className="flex items-center gap-4">

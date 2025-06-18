@@ -4,7 +4,6 @@ export default function CallActionForm({ callActionData, setCallActionData }) {
         updated[index][field] = value;
         setCallActionData(updated);
     };
-    console.log("callActionData", callActionData)
 
     const handleAdd = () => {
         setCallActionData([...callActionData, { title: "", url: "" }]);
@@ -17,7 +16,6 @@ export default function CallActionForm({ callActionData, setCallActionData }) {
 
     return (
         <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Links destacados</h3>
 
             {callActionData.map((item, index) => (
                 <div key={index} className="flex items-center gap-4">
@@ -30,7 +28,7 @@ export default function CallActionForm({ callActionData, setCallActionData }) {
                 />
                 <input
                     type="text"
-                    value={item.value}
+                    value={item.url}
                     onChange={(e) => handleChange(index, "url", e.target.value)}
                     placeholder="https://tusitio.com"
                     className="w-24 border rounded px-3 py-2"
