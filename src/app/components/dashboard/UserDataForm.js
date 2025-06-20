@@ -10,8 +10,7 @@ import useUsername from "@/app/hooks/useUserName";
 import { useUserSection } from "@/app/hooks/useUserSection";
 import useUserMenu from "@/app/hooks/useUserMenu";
 import Preview from "./Preview";
-
-const MENU_ITEMS = ["inicio", "sobre_mi", "paginas", "linktree", "diseño", "ajustes"];
+import PagesForm from "./PagesForm";
 
 // Datos iniciales para el formulario
 const USER_ABOUT_DATA = {
@@ -29,16 +28,86 @@ const USER_ABOUT_DATA = {
     description: "",
     amount: [],
     callAction: []
-  }
+  },
+  pages: [
+    // {
+      // type: "",
+      // title: "",
+      // content: {}
+      // content: {
+      //   "text": {
+      //       "title": "Tatuajes",
+      //       "text": "Explora una variedad de estilos y diseños únicos que capturan la esencia del arte corporal. Desde lo geométrico hasta el realismo, cada tatuaje cuenta una historia."
+      //   },
+      //   "albums": [
+      //     {
+      //       "title": "Tatuajes Geométricos",
+      //       "photos": [
+      //         { 
+      //           "src": "/demo/image1.jpg", 
+      //           "alt": "Tatuaje Geométrico - Líneas y formas"
+      //         },
+      //         { 
+      //           "src": "/demo/image2.jpg", 
+      //           "alt": "Tatuaje de Mandala"
+      //         },
+      //         { 
+      //           "src": "/demo/image3.jpg", 
+      //           "alt": "Tatuaje Abstracto"
+      //         },
+      //         { 
+      //           "src": "/demo/image4.jpg", 
+      //           "alt": "Tatuaje Realista - Retrato de un León"
+      //         },
+      //         { 
+      //           "src": "/demo/image5.jpg", 
+      //           "alt": "Tatuaje Realista - Retrato de un León"
+      //         }
+      //       ]
+      //     },
+      //   ]
+      // }
+    // },
+  ]
 };
 
 export default function UserDataForm({ user }) {
-  const [activeSection, setActiveSection] = useState("sobre_mi");
+  const MENU_ITEMS = [
+    {
+      name: "Inicio",
+      section: "inicio"
+    },
+    {
+      name: "Sobre mí",
+      section: "about"
+    },
+    {
+      name: "Páginas",
+      section: "pages",
+      items: []
+    },
+    {
+      name: "Linktree",
+      section: "linktree"
+    },
+    {
+      name: "Diseño",
+      section: "design"
+    },
+    {
+      name: "Ajustes",
+      section: "settings"
+    }
+  ];
+
+  const [activeSection, setActiveSection] = useState("about");
   const [userDataForm, setUserDataForm] = useState(USER_ABOUT_DATA);
+  const [menuItems, setMenuItems] = useState(MENU_ITEMS);
   const [uploading, setUploading] = useState(false);
   
   const username = useUsername(user.uid);
   const {data: aboutData} = useUserSection(username, "about");
+  const {data: pagesData} = useUserSection(username, "pages");
   const actualMenu = useUserMenu(username);
 
   // Hidratación inicial con datos del menú
@@ -57,7 +126,25 @@ export default function UserDataForm({ user }) {
         about: aboutData
       }));
     }
-  }, [actualMenu, aboutData]);
+
+    if (pagesData) {
+      setUserDataForm(prev => ({
+        ...prev,
+        pages: pagesData
+      }));
+      setMenuItems(prev => {
+        const updatedItems = [...prev];
+        const pagesItem = updatedItems.find(item => item.section === "pages");
+        if (pagesItem) {
+          pagesItem.items = pagesData.map(page => ({
+            name: page.name,
+            section: page.slug || page.name.toLowerCase().replace(/\s+/g, "-")
+          }));
+        }
+        return updatedItems;
+      });
+    }
+  }, [actualMenu, aboutData, pagesData]);
 
   // Derivar datos para la vista previa
   const menu = {
@@ -98,7 +185,8 @@ export default function UserDataForm({ user }) {
   return (
     <div className="flex h-screen">
       <LateralMenu
-        menuItems={MENU_ITEMS}
+        menuItems={menuItems}
+        pagesData={pagesData}
         activeSection={activeSection}
         setActiveSection={setActiveSection}
       />
@@ -107,7 +195,7 @@ export default function UserDataForm({ user }) {
         <Preview menu={menu} aboutData={userDataForm?.about} />
 
         <section className="w-[480px] p-6 overflow-auto bg-white">
-          {activeSection === "sobre_mi" && (
+          {activeSection === "about" && (
             <>
               <h2 className="text-xl font-semibold mb-4">Personaliza tu portafolio</h2>
               <HeaderForm
@@ -126,10 +214,20 @@ export default function UserDataForm({ user }) {
               />
             </>
           )}
-          {activeSection === "paginas" && (
+          {activeSection === "pages" && (
+            <>
+              <h2 className="text-xl font-semibold mb-4">Personaliza las páginas de tu portafolio</h2>
+              <PagesForm
+                user={user}
+                userDataForm={userDataForm}
+                setUserDataForm={setUserDataForm}
+              />
+            </>
+          )}
+          {activeSection === "linktree" && (
             <div className="text-gray-500">
               <p>
-                Sección <strong>{activeSection}</strong> en construcción xdddd.
+                Sección <strong>{activeSection}</strong> en construcción.
               </p>
             </div>
           )}

@@ -12,12 +12,6 @@ export default function AboutForm({
   uploading,
   userDataForm,
   setUserDataForm,
-  // setName, 
-  // setSocial, 
-  // setDescription, 
-  // setAmount, 
-  // setCallAction,
-  // handleImageUpload,
   imageUploader
 }) {
 
