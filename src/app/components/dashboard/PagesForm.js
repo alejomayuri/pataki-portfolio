@@ -8,8 +8,8 @@ export default function PagesForm({ user, userDataForm, setUserDataForm }) {
 
     // Nuevos estados para crear una página
     const [pageName, setPageName] = useState("");
-    const [pageType, setPageType] = useState("photo");
-    console.log("userDataForm", userDataForm);
+    const [pageType, setPageType] = useState("photo"); 
+    
     const handleAddPage = () => {
         if (!pageName.trim()) return;
 

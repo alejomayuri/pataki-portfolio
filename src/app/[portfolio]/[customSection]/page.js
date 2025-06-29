@@ -12,7 +12,6 @@ export default function CustomSection() {
 
     // const { portfolio } = useParams();
     const { data: sectionData, loading, error } = useUserSection(portfolio, customSection);
-    console.log("sectionData", sectionData);
 
     // useEffect(() => {
     //     fetch(`/api/user?username=${portfolio}&section=${customSection}`)

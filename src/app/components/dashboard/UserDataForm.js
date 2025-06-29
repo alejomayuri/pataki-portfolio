@@ -11,6 +11,7 @@ import { useUserSection } from "@/app/hooks/useUserSection";
 import useUserMenu from "@/app/hooks/useUserMenu";
 import Preview from "./Preview";
 import PagesForm from "./PagesForm";
+import CustomePageForm from "./CustomePageForm";
 
 // Datos iniciales para el formulario
 const USER_ABOUT_DATA = {
@@ -29,46 +30,7 @@ const USER_ABOUT_DATA = {
     amount: [],
     callAction: []
   },
-  pages: [
-    // {
-      // type: "",
-      // title: "",
-      // content: {}
-      // content: {
-      //   "text": {
-      //       "title": "Tatuajes",
-      //       "text": "Explora una variedad de estilos y diseños únicos que capturan la esencia del arte corporal. Desde lo geométrico hasta el realismo, cada tatuaje cuenta una historia."
-      //   },
-      //   "albums": [
-      //     {
-      //       "title": "Tatuajes Geométricos",
-      //       "photos": [
-      //         { 
-      //           "src": "/demo/image1.jpg", 
-      //           "alt": "Tatuaje Geométrico - Líneas y formas"
-      //         },
-      //         { 
-      //           "src": "/demo/image2.jpg", 
-      //           "alt": "Tatuaje de Mandala"
-      //         },
-      //         { 
-      //           "src": "/demo/image3.jpg", 
-      //           "alt": "Tatuaje Abstracto"
-      //         },
-      //         { 
-      //           "src": "/demo/image4.jpg", 
-      //           "alt": "Tatuaje Realista - Retrato de un León"
-      //         },
-      //         { 
-      //           "src": "/demo/image5.jpg", 
-      //           "alt": "Tatuaje Realista - Retrato de un León"
-      //         }
-      //       ]
-      //     },
-      //   ]
-      // }
-    // },
-  ]
+  pages: []
 };
 
 export default function UserDataForm({ user }) {
@@ -84,7 +46,7 @@ export default function UserDataForm({ user }) {
     {
       name: "Páginas",
       section: "pages",
-      items: []
+      subitems: []
     },
     {
       name: "Linktree",
@@ -109,6 +71,8 @@ export default function UserDataForm({ user }) {
   const {data: aboutData} = useUserSection(username, "about");
   const {data: pagesData} = useUserSection(username, "pages");
   const actualMenu = useUserMenu(username);
+
+  console.log("UserDataForm", userDataForm);
 
   // Hidratación inicial con datos del menú
   useEffect(() => {
@@ -136,9 +100,10 @@ export default function UserDataForm({ user }) {
         const updatedItems = [...prev];
         const pagesItem = updatedItems.find(item => item.section === "pages");
         if (pagesItem) {
-          pagesItem.items = pagesData.map(page => ({
+          pagesItem.subitems = pagesData.map(page => ({
             name: page.name,
-            section: page.slug || page.name.toLowerCase().replace(/\s+/g, "-")
+            section: page.slug || page.name.toLowerCase().replace(/\s+/g, "-"),
+            type: page.type || "default"
           }));
         }
         return updatedItems;
@@ -182,6 +147,13 @@ export default function UserDataForm({ user }) {
     }
   };
 
+  const subitemSelected = userDataForm.pages.find(
+    page => page.slug === activeSection
+  );
+  // console.log("activeSection", activeSection);
+  // console.log("userDataForm", userDataForm);
+  // console.log("Subitem selected:", subitemSelected);
+
   return (
     <div className="flex h-screen">
       <LateralMenu
@@ -214,6 +186,7 @@ export default function UserDataForm({ user }) {
               />
             </>
           )}
+
           {activeSection === "pages" && (
             <>
               <h2 className="text-xl font-semibold mb-4">Personaliza las páginas de tu portafolio</h2>
@@ -224,6 +197,23 @@ export default function UserDataForm({ user }) {
               />
             </>
           )}
+
+          {menuItems[2].subitems.some(item => item.section === activeSection) && (
+            <>
+              <h2 className="text-xl font-semibold mb-4">
+                Editar página: {subitemSelected.name}
+              </h2>
+              <CustomePageForm
+                user={user}
+                userDataForm={userDataForm}
+                uploading={uploading}
+                setUserDataForm={setUserDataForm}
+                section={subitemSelected}
+                imageUploader={handleImageUpload}
+              />
+            </>
+          )}
+
           {activeSection === "linktree" && (
             <div className="text-gray-500">
               <p>

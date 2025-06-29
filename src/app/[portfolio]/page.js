@@ -23,7 +23,6 @@ export default function AboutMe() {
 
   if (loading) return <Skeleton type="about" />;
   if (error)   return <div className="text-center mt-10">Error: {error}</div>;
-  console.log("userData", userData);
 
   return (
     <div className="max-w-sm mx-auto text-center">
