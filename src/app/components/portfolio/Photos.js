@@ -15,32 +15,32 @@ export default function Fotos({ data }) {
             whatsapp: `https://wa.me/?text=${url}`
         };
     };
-    
+        console.log("data", data);
     return (
         <div className="max-w-md mx-auto">
-            {data?.text && (
+            {/* {data?.text && ( */}
                 <div className="text-center mb-6">
-                    <h2 className="text-2xl font-bold mb-2">{data?.text?.title}</h2>
-                    <p className="text-gray-700">{data?.text?.text}</p>
+                    <h2 className="text-2xl font-bold mb-2">{data?.name}</h2>
+                    {/* <p className="text-gray-700">{data?.text?.text}</p> */}
                 </div>
-            )}
+            {/* )} */}
             <div className="space-y-8">
-                {data?.albums?.map((album, index) => (
+                {data?.colections?.map((colection, index) => (
                     <div key={index}>
-                        <h2 className="text-xl font-semibold mb-3">{album?.title}</h2>
+                        <h2 className="text-xl font-semibold mb-3">{colection?.name}</h2>
                         <div className="columns-2 gap-4 space-y-4">
-                            {album?.photos?.map((photo, photoIndex) => (
+                            {colection?.images?.map((image, photoIndex) => (
                                 <div 
                                     key={photoIndex}
                                     className="break-inside-avoid overflow-hidden rounded relative"
                                 >
                                     <img 
-                                        src={photo?.src} 
-                                        alt={photo?.alt} 
+                                        src={image} 
+                                        // alt={photo?.alt} 
                                         className="w-full h-auto cursor-pointer rounded"
                                         loading="lazy"
                                         onClick={() => {
-                                            setLightboxImage(photo?.src);
+                                            setLightboxImage(image);
                                         }}
                                     />
                                 </div>

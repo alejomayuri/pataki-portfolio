@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 export function useUserSection(username, section = "about") {
-  const [data, setData]     = useState(null);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError]     = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!username) return;

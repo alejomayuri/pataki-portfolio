@@ -1,4 +1,6 @@
-export default function TypePhotoForm({ data, setImageColections, imageUploader }) {
+
+
+export default function TypePhotoForm({ user, data, setImageColections, imageUploader, onSave }) {
     const handleAddColection = () => {
         setImageColections(([
             ...data.colections || [], 
@@ -30,12 +32,19 @@ export default function TypePhotoForm({ data, setImageColections, imageUploader 
         setImageColections(updatedColections);
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!user || !onSave) return;
+
+        await onSave(data.id, data.colections || []);
+    };
+
     return (
         <>
             <div className="space-y-4">
                 <h3 className="text-lg font-semibold">Añade fotos a tu galería</h3>
                 {data?.colections?.map((collection, index) => (
-                    <div key={collection.id} className="mt-4 p-4 border rounded-lg bg-gray-50">
+                    <form onSubmit={handleSubmit} key={collection.id} className="mt-4 p-4 border rounded-lg bg-gray-50">
                         <input
                             type="text"
                             placeholder="Nombre de la colección"
@@ -63,7 +72,16 @@ export default function TypePhotoForm({ data, setImageColections, imageUploader 
                                 ))}
                             </div>
                         )}
-                    </div>
+
+                        {collection.images && collection.images.length > 0 && (
+                            <button
+                                type="submit"
+                                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                            >
+                                Guardar colección
+                            </button>
+                        )}
+                    </form>
                 ))}
                 <button onClick={handleAddColection} type="button" className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
                     Añadir colección

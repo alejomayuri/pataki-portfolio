@@ -9,9 +9,10 @@ import { useUserSection } from "@/app/hooks/useUserSection";
 export default function CustomSection() {
     const { portfolio, customSection } = useParams();
     // const [sectionData, setSectionData] = useState(null);
-
+    // console.log("portfolio", portfolio, "customSection", customSection);
     // const { portfolio } = useParams();
     const { data: sectionData, loading, error } = useUserSection(portfolio, customSection);
+    console.log("sectionData", sectionData);
 
     // useEffect(() => {
     //     fetch(`/api/user?username=${portfolio}&section=${customSection}`)
@@ -24,8 +25,8 @@ export default function CustomSection() {
     
     // if (!sectionData) return <Skeleton type="fotos" />;
 
-    if (sectionData && sectionData?.type === "fotos") {
-        return <Fotos data={sectionData?.data} />; // Renderiza la sección de fotos
+    if (sectionData && sectionData?.type === "photo") {
+        return <Fotos data={sectionData} />; // Renderiza la sección de fotos
     } else {
         return (
             <div className="text-center mt-10">

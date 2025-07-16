@@ -33,7 +33,7 @@ export async function GET(req) {
     const userData = docSnap.data();
 
     if (section) {
-      const sectionData = userData["portfolio"][section];
+      const sectionData = userData["portfolio"][section] || userData["portfolio"].pages?.find(page => page.slug === section);
       if (!sectionData) {
         return NextResponse.json({ error: "Section not found" }, { status: 404 });
       }
