@@ -30,7 +30,8 @@ const USER_ABOUT_DATA = {
     amount: [],
     callAction: []
   },
-  pages: []
+  pages: [],
+  menuLinks: [],
 };
 
 export default function UserDataForm({ user }) {
@@ -70,6 +71,7 @@ export default function UserDataForm({ user }) {
   const username = useUsername(user.uid);
   const {data: aboutData} = useUserSection(username, "about");
   const {data: pagesData} = useUserSection(username, "pages");
+  const {data: menuLinksData} = useUserSection(username, "menuLinks");
   const actualMenu = useUserMenu(username);
 
   console.log("UserDataForm", userDataForm);
@@ -108,6 +110,13 @@ export default function UserDataForm({ user }) {
         }
         return updatedItems;
       });
+    }
+
+    if (menuLinksData) {
+      setUserDataForm(prev => ({
+        ...prev,
+        menuLinks: menuLinksData
+      }));
     }
   }, [actualMenu, aboutData, pagesData]);
 
@@ -194,6 +203,7 @@ export default function UserDataForm({ user }) {
                 user={user}
                 userDataForm={userDataForm}
                 setUserDataForm={setUserDataForm}
+                username={username}
               />
             </>
           )}

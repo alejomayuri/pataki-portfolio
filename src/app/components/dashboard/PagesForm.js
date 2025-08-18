@@ -2,7 +2,7 @@ import { useState } from "react";
 import { db } from "@/lib/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
-export default function PagesForm({ user, userDataForm, setUserDataForm }) {
+export default function PagesForm({ user, username, userDataForm, setUserDataForm }) {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
 
@@ -19,12 +19,13 @@ export default function PagesForm({ user, userDataForm, setUserDataForm }) {
             id: crypto.randomUUID(), // puedes usar una id única para manejo futuro
             slug: pageName.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "-")
         };
-
+        console.log("userDataForm", userDataForm)
         const updatedPages = [...(userDataForm.pages || []), newPage];
 
         setUserDataForm((prev) => ({
             ...prev,
             pages: updatedPages,
+            menuLinks: [...(userDataForm.menuLinks || []), { title: pageName.trim(), link: `/${username}/${newPage.slug}`, id: newPage.id }],
         }));
 
         // Reset campos
@@ -37,6 +38,7 @@ export default function PagesForm({ user, userDataForm, setUserDataForm }) {
         setUserDataForm((prev) => ({
             ...prev,
             pages: updatedPages,
+            menuLinks: userDataForm.menuLinks.filter(link => link.id !== id)
         }));
     };
 
@@ -51,6 +53,7 @@ export default function PagesForm({ user, userDataForm, setUserDataForm }) {
             const userRef = doc(db, "usuarios", user.uid);
             await updateDoc(userRef, {
                 "portfolio.pages": userDataForm?.pages || [],
+                "portfolio.menuLinks": userDataForm?.menuLinks || [],
             });
             setSuccess(true);
         } catch (err) {

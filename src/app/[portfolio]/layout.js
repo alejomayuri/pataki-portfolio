@@ -10,7 +10,7 @@ export default function Layout({ children }) {
   const menu = useUserMenu(portfolio);
 
   if (!menu) return null;
-
+  console.log("menu", menu);
   return (
     <div className="flex flex-col w-full min-h-screen bg-gradient-to-t from-white to-purple-300 text-gray-800 bg-fixed">
       <Header data={menu} />
