@@ -19,7 +19,8 @@ import { useUserSection } from "../hooks/useUserSection";
 
 export default function AboutMe() {
   const { portfolio } = useParams();
-  const { data: userData, loading, error } = useUserSection(portfolio, "about");
+  const { data: userData, loading, error } = useUserSection(portfolio);
+  const { about, pages } = userData || {};
 
   if (loading) return <Skeleton type="about" />;
   if (error)   return <div className="text-center mt-10">Error: {error}</div>;
@@ -27,30 +28,30 @@ export default function AboutMe() {
   return (
     <div className="max-w-sm mx-auto text-center">
       {/* Imagen */}
-      {userData?.mainImage && <MainImage image={userData?.mainImage} name={userData?.mainName} />}
+      {about?.mainImage && <MainImage image={about?.mainImage} name={about?.mainName} />}
 
       {/* Redes sociales */}
-      {userData?.social && <NetworkButtons data={userData?.social} />}
+      {about?.social && <NetworkButtons data={about?.social} />}
         
       {/* Texto */}
-      {userData?.description && <Description description={userData?.description} />}
+      {about?.description && <Description description={about?.description} />}
 
       {/* Cifras destacadas */}
-      {userData?.amount && userData?.amount?.length > 0 && <Amounts amounts={userData?.amount} />}
+      {about?.amount && about?.amount?.length > 0 && <Amounts amounts={about?.amount} />}
 
       {/* Call action */}
-      {userData?.callAction && <CallAction callActions={userData?.callAction} />}
+      {about?.callAction && <CallAction callActions={about?.callAction} />}
 
       {/* Preview Fotos */}
-      {userData?.preview?.fotos && userData?.preview?.fotos?.length > 0 && (
+      {pages && pages.length > 0 && (
         <section className="mt-12 space-y-12">
-          {userData.preview.fotos.map((section, i) => (
-            <Link
-              key={section.key}
-              href={`/${portfolio}/${section.key}`}
+          {pages.map((section, i) => (
+            section.colections && <Link
+              key={section.id}
+              href={`/${portfolio}/${section.slug}`}
               className="block"
             >
-              <Slideshow title={section.name} albums={section.albums} />
+              <Slideshow title={section.name} album={section.colections} />
             </Link>
           ))}
         </section>

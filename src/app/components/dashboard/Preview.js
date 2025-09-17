@@ -5,9 +5,10 @@ import MainImage from "../portfolio/aboutPage/MainImage";
 import NetworkButtons from "../portfolio/aboutPage/NetworkButtons";
 import Description from "../portfolio/aboutPage/Description";
 import Amounts from "../portfolio/aboutPage/Amounts";
+import Slideshow from "../portfolio/Photos/Slideshow";
 import CallAction from "../portfolio/aboutPage/CallAction";
 
-export default function Preview({ menu, aboutData }) {
+export default function Preview({ menu, aboutData, pagesData }) {
     return (
         <section className="flex-1 p-6 overflow-auto border-r bg-gray-50">
             <h3 className="text-lg font-semibold mb-4">Vista previa</h3>
@@ -20,6 +21,13 @@ export default function Preview({ menu, aboutData }) {
                         {aboutData?.description && <Description description={aboutData.description} />}
                         {aboutData?.amount && aboutData?.amount?.length > 0 && <Amounts amounts={aboutData.amount} />}
                         {aboutData?.callAction && aboutData?.callAction?.length > 0 && <CallAction callActions={aboutData.callAction} />}
+                        {pagesData && pagesData?.length > 0 && (
+                            <section className="mt-12 space-y-12">
+                                {pagesData.map((section, i) => (
+                                    section.colections && <Slideshow key={i} title={section.name} album={section.colections} />
+                                ))}
+                            </section>
+                        )}
                     </div>
                 </div>
             </div>

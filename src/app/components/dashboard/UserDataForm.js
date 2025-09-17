@@ -173,7 +173,7 @@ export default function UserDataForm({ user }) {
       />
 
       <main className="flex flex-1">
-        <Preview menu={menu} aboutData={userDataForm?.about} />
+        <Preview menu={menu} aboutData={userDataForm?.about} pagesData={userDataForm?.pages} />
 
         <section className="w-[480px] p-6 overflow-auto bg-white">
           {activeSection === "about" && (

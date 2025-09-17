@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function useUserSection(username, section = "about") {
+export function useUserSection(username, section) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +11,7 @@ export function useUserSection(username, section = "about") {
     setLoading(true);
     setError(null);
 
-    fetch(`/api/user?username=${encodeURIComponent(username)}&section=${encodeURIComponent(section)}`)
+    fetch(`/api/user?username=${encodeURIComponent(username)}&section=${section ? encodeURIComponent(section) : ''}`)
       .then(async (res) => {
         if (!res.ok) {
           // intentar leer mensaje de error JSON
