@@ -1,4 +1,4 @@
-export default function CallActionForm({ callActionData, setCallActionData }) {
+export default function CallActionForm({ callActionData, setCallActionData, setCallActionImage }) {
     const handleChange = (index, field, value) => {
         const updated = [...callActionData];
         updated[index][field] = value;
@@ -32,6 +32,12 @@ export default function CallActionForm({ callActionData, setCallActionData }) {
                     onChange={(e) => handleChange(index, "url", e.target.value)}
                     placeholder="https://tusitio.com"
                     className="w-24 border rounded px-3 py-2"
+                />
+                <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={(e) => setCallActionImage(e, index)} 
+                    className="mt-1" 
                 />
                 <button
                     type="button"

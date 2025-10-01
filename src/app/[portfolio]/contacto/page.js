@@ -63,7 +63,7 @@ export default function LinkTree() {
             )}
 
             {/* Enlaces */}
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
                 {userData.linkGroup.map((group, index) => (
                     <div key={index} className="mb-8">
                         <div className="text-center">
@@ -96,7 +96,7 @@ export default function LinkTree() {
                         </div>
                     </div>
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 }

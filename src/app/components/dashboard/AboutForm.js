@@ -38,6 +38,18 @@ export default function AboutForm({
   const setCallAction = (callAction) => {
     setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, callAction } }))
   }
+  const setCallActionImage = (e, index) => {
+    const updatedCallAction = [...(userDataForm?.about?.callAction || [])];
+    updatedCallAction[index] = {
+      ...updatedCallAction[index],
+      image: null
+    };
+    console.log(updatedCallAction);
+    imageUploader(e, (url) => {
+      updatedCallAction[index].image = url;
+      setUserDataForm((prev) => ({ ...prev, about: { ...prev.about, callAction: updatedCallAction }}));
+    });
+  }
   
   const handleSave = async () => {
     if (!user || !userDataForm?.about?.mainImage || !userDataForm?.about?.mainName) return;
@@ -114,6 +126,7 @@ export default function AboutForm({
             <CallActionForm
                 callActionData={userDataForm?.about?.callAction || []}
                 setCallActionData={(callAction) => setCallAction(callAction)}
+                setCallActionImage={setCallActionImage}
             />
         </label>
         <button

@@ -74,7 +74,7 @@ export default function UserDataForm({ user }) {
   const {data: menuLinksData} = useUserSection(username, "menuLinks");
   const actualMenu = useUserMenu(username);
 
-  console.log("UserDataForm", userDataForm);
+  // console.log("UserDataForm", userDataForm);
 
   // Hidratación inicial con datos del menú
   useEffect(() => {
